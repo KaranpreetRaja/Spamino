@@ -2,7 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from transformers import AutoTokenizer
-
+from sklearn.model_selection import KFold
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
 # Returns the content of the link while still being secure as some of the links may be malicious
 def get_content(link):
@@ -28,3 +30,25 @@ labels = data['safe']
 
 preprocessedLinks = [tokenize_text(get_content(link)) for link in links]
 
+
+# Trains a logistic regression model using 10-fold cross validation
+nSplit = 10
+
+kfold = KFold(n_splits=nSplit, shuffle=True, random_state=1)
+
+accuracyScores = []
+
+for train, test in kfold.split(preprocessedLinks):
+    trainX, testX = preprocessedLinks[train], preprocessedLinks[test]
+    trainY, testY = labels[train], labels[test]
+
+    model = LogisticRegression()
+    model.fit(trainX, trainY)
+
+    yPredictions = model.predict(testX)
+    curAccuracy = accuracy_score(testY, yPredictions)
+    accuracyScores.append(curAccuracy)
+
+
+# Uses metrics module to print the average accuracy of the model
+print('Average accuracy: ', sum(accuracyScores) / len(accuracyScores))
