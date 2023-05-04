@@ -4,7 +4,7 @@ import pandas as pd
 from transformers import AutoTokenizer
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn import metrics
 
 # Returns the content of the link while still being secure as some of the links may be malicious
 def get_content(link):
@@ -37,6 +37,9 @@ nSplit = 10
 kfold = KFold(n_splits=nSplit, shuffle=True, random_state=1)
 
 accuracyScores = []
+f1Scores = []
+precisionScores = []
+recallScores = []
 
 for train, test in kfold.split(preprocessedLinks):
     trainX, testX = preprocessedLinks[train], preprocessedLinks[test]
@@ -46,9 +49,22 @@ for train, test in kfold.split(preprocessedLinks):
     model.fit(trainX, trainY)
 
     yPredictions = model.predict(testX)
-    curAccuracy = accuracy_score(testY, yPredictions)
+    curAccuracy = metrics.accuracy_score(testY, yPredictions)
+    curF1 = metrics.f1_score(testY, yPredictions)
+    curPrecision = metrics.precision_score(testY, yPredictions)
+    curRecall = metrics.recall_score(testY, yPredictions)
+
     accuracyScores.append(curAccuracy)
+    f1Scores.append(curF1)
+    precisionScores.append(curPrecision)
+    recallScores.append(curRecall)
+
+
 
 
 # Uses metrics module to print the average accuracy of the model
 print('Average accuracy: ', sum(accuracyScores) / len(accuracyScores))
+print('Average F1 score: ', sum(f1Scores) / len(f1Scores))
+print('Average precision: ', sum(precisionScores) / len(precisionScores))
+print('Average recall: ', sum(recallScores) / len(recallScores))
+
