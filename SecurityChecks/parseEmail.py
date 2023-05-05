@@ -8,6 +8,7 @@ import re
 def toTuple(mail, bSpam):
     
     body = mail.get_payload()
+    body = re.sub('<(.|\n)*?>', '', body)
     subject = mail.get("Subject")
 
     rp = False 
@@ -43,9 +44,12 @@ def call(rootdir, bSpam):
                 path = os.path.join(subdir, file)
                 f = open(path, 'rb')
                 # print(f.read())
-                content = f.read().decode("cp1252")
+                content = f.read().decode("cp850")
                 mail = parseEmail(content)
                 writer.writerow(toTuple(mail, bSpam))
 
-call("dataset/ham/", True)
+# call("dataset/ham/", True)
 call("dataset/spam/", True)
+
+# f = open('test.txt', 'r').read()
+# print(re.sub('<(.|\n)*?>', '', f))
