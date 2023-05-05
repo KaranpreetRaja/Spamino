@@ -23,7 +23,7 @@ def toTuple(mail, bSpam):
     tld = ''
 
     if sender != None:
-        tldList = open('tld.txt', 'r').read().splitlines()
+        tldList = open('C:\\Users\\sandbox1\\Documents\\GitHub\\Spamino\\DataBases\\tld.txt', 'r').read().splitlines()
         for line in tldList:
             x = re.search(f"@.*\.{line}(?:\n|\Z|\s|\.|>)+.*", sender.upper())
             if x != None:
@@ -48,5 +48,5 @@ def call(rootdir, bSpam):
                 mail = parseEmail(content)
                 writer.writerow(toTuple(mail, bSpam))
 
-call("dataset/ham/", False)
-call("dataset/spam/", True)
+call("DataBases\HamEmails", False)
+call("DataBases\SpamEmails", True)

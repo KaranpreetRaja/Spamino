@@ -1,0 +1,1734 @@
+Re: New Sequences Window,"    Date:        Tue, 20 Aug 2002 17:27:47 -0500
+    From:        Chris Garrigues 
+    Message-ID:  
+
+
+  | I'm hoping that all people with no additional sequences will notice are
+  | purely cosmetic changes.
+
+Well, first, when exmh (the latest one with your changes) starts, I get...
+
+can't read ""flist(totalcount,unseen)"": no such element in array
+    while executing
+""if {$flist(totalcount,$mhProfile(unseen-sequence)) > 0} {
+	FlagInner spool iconspool labelup
+    } else {
+	FlagInner down icondown labeldown
+    }""
+    (procedure ""Flag_MsgSeen"" line 3)
+    invoked from within
+""Flag_MsgSeen""
+    (procedure ""MsgSeen"" line 8)
+    invoked from within
+""MsgSeen $msgid""
+    (procedure ""MsgShow"" line 12)
+    invoked from within
+""MsgShow $msgid""
+    (procedure ""MsgChange"" line 17)
+    invoked from within
+""MsgChange 4862 show""
+    invoked from within
+""time [list MsgChange $msgid $show""
+    (procedure ""Msg_Change"" line 3)
+    invoked from within
+""Msg_Change $msg(id) $show""
+    (procedure ""Msg_Show"" line 7)
+    invoked from within
+""Msg_Show cur""
+    (""eval"" body line 1)
+    invoked from within
+""eval $msgShowProc""
+    (procedure ""FolderChange"" line 55)
+    invoked from within
+""FolderChange inbox {Msg_Show cur}""
+    invoked from within
+""time [list  FolderChange $folder $msgShowProc""
+    (procedure ""Folder_Change"" line 3)
+    invoked from within
+""Folder_Change $exmh(folder)""
+    (procedure ""Exmh"" line 101)
+    invoked from within
+""Exmh""
+    (""after"" script)
+
+which is probably related to my not having an ""unseen"" sequence anywhere
+(certainly not in inbox) - I read all of my outstanding mail before I
+tried this new exmh ...
+
+Second, I've been used to having a key binding which was to Msg_MarkUnseen
+which doesn't seem to exist any more, and I'm not sure what I should replace
+that with.   There's obviously a way as the ""Sequences"" menu does this.
+The ""Mark Unseen"" menu entry in the message ""More"" menu is still wanting
+that function as well...
+
+  | For those who have other sequences defined, the window will widen to
+  | display the other sequences.
+
+Any chance of having that lengthen instead?   I like all my exmh stuff
+in nice columns (fits the display better).   That is, I use the detached
+folder list, one column.   The main exmh window takes up full screen,
+top to bottom, but less than half the width, etc...
+
+I have space for more sequences, in the ""unseen"" window, as long as they
+remain once nice narrow window (best would be if the sequences could be
+ordered by some preference, then ones which didn't fit would just fall
+off the bottom, and not be shown).
+
+I'd also prefer it if that window had no unusual background colouring,
+just one constant colour - I have been running the unseen window with
+background black, on a root window that is all black, with no borders or
+other decorations, but made ""sticky"" - the appearance is just like the
+folders with unseen messages (and their counts) are written into the
+root window (because it is sticky, this small display follows me around
+and do I can see when new mail needs processing).
+
+I also find that I tend to have a bunch of sequences that only ever occur
+in one folder (some I had forgotten I ever created).  So in addition to
+the ""sequences to always show"" and ""sequences to never show"", a
+preference to only show sequences that occur in more than one folder
+would be useful, and then have the sequences that occor only in the
+folder I'm visiting appear in the list when that folder is current.
+This is just to keep the list size somewhat manageable while remaining
+productive (I quite often use a sequence to remember a particular message
+in a folder - the name is used only there, and only for one message,
+it gives me a handle on the message which remains as the folder is
+packed, sorted, etc).
+
+I haven't updated my exmh for some time now, so I'm not sure if this
+next one is new, or just new since 2.5, but the Sequences menu (on the
+bar with New Flist Search ...) only contains ""unseen"" and ""urgent"".
+It would be useful if it contained all of the sequences that the folder
+happens to have defined.   A ""New sequence"" entry would also be useful
+(to mark the message with a sequence name that didn't previously exist,
+which can be done now using ""Search"" and the pick interface, but is
+clumsy that way)
+
+Actually, you once could, now when I try this, entering a sequence name
+in the pick box, and a single message number, or a range N-N in the
+list of messages, and no pick attributes at all, I now get ...
+
+syntax error in expression ""int(1+1+(1 hit-1)*(3868-1-2)/(4878-1))""
+    while executing
+""expr int($minlineno+1+($msgid-$minmsgid)*($maxlineno-$minlineno-2)/($maxmsgid-$minmsgid))""
+    (procedure ""Ftoc_FindMsg"" line 46)
+    invoked from within
+""Ftoc_FindMsg $msg""
+    (procedure ""Ftoc_FindMsgs"" line 5)
+    invoked from within
+""Ftoc_FindMsgs $msgids""
+    (procedure ""Ftoc_PickMsgs"" line 5)
+    invoked from within
+""Ftoc_PickMsgs $pick(ids) $pick(addtosel)""
+    (procedure ""PickInner"" line 13)
+    invoked from within
+""PickInner {exec pick +inbox -list} {4852 -sequence mercury}""
+    (""uplevel"" body line 1)
+    invoked from within
+""uplevel #0 $cmd""
+    (procedure ""busyCursorInner"" line 8)
+    invoked from within
+""busyCursorInner $cmd $widgets""
+    (procedure ""busyCursorHack"" line 32)
+    invoked from within
+""busyCursorHack $args""
+    (""cursor"" arm line 1)
+    invoked from within
+""switch $busy(style) {
+	icon		{busyIcon $args}
+	cursorAll	{busyCursor $args}
+	cursor		{busyCursorHack $args}
+	default		{eval $args}
+    }""
+    (procedure ""busy"" line 3)
+    invoked from within
+""busy PickInner $cmd $msgs""
+    (procedure ""Pick_It"" line 51)
+    invoked from within
+""Pick_It""
+    invoked from within
+"".pick.but.pick invoke""
+    (""uplevel"" body line 1)
+    invoked from within
+""uplevel #0 [list $w invoke]""
+    (procedure ""tkButtonUp"" line 7)
+    invoked from within
+""tkButtonUp .pick.but.pick
+""
+    (command bound to event)
+
+It has been ages since I did this last though.   I tried adding a Subject
+to pick on (easy as I know what's in the message...) which made no difference.
+Looks as if something is now saying ""1 hit"" when before it didn't, or
+similar.
+
+  | I've also changed the ftoc colorization as discussed briefly on the list a 
+  | week or so ago.
+
+Any chance of making the current message a little brighter background?
+Just to make it stand out a fraction more than it does (maybe this is
+more apparent to me than many, as I use very small fonts everywhere,
+the background of the ftoc line isn't very wide).
+
+Hope this helps.
+
+kre
+
+
+
+_______________________________________________
+Exmh-workers mailing list
+Exmh-workers@redhat.com
+https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+",.au,True,0,,False
+Personal Finance: Resolutions You Can Keep,"
+======================== THE MOTLEY FOOL ========================
+                        PERSONAL  FINANCE 
+                    Wednesday, January 2, 2002 
+										 
+mkettler@home.com
+=================================================================
+
+IN THIS ISSUE
+
+- ASK THE FOOL: Stop the Solicitation!
+  http://www.fool.com/m.asp?i=562064
+
+- YOUR MONEY: Resolutions You Can Keep
+  http://www.fool.com/m.asp?i=562065
+
+- SPOTLIGHT: Should All My Savings Be in the Market?
+  http://www.fool.com/m.asp?i=562066
+	
+- COMMUNITY TIPS: Do (At Least) One Thing Differently
+  http://www.fool.com/m.asp?i=562067
+
+=================================================================
+
+SPONSORED BY: Datek
+Datek Online. Built to trade.
+*Proprietary auto routing technology | *$9.99 commission 
+for online equity trades | *60-second execution commitment.
+Apply for a Datek Account Now!
+http://www.lnksrv.com/m.asp?i=562068
+
+=================================================================
+ASK THE FOOL
+
+Q. I'M TIRED OF GETTING SO MANY CREDIT CARD OFFERS IN THE MAIL. 
+I ALREADY HAVE 
+A CARD AND I DON'T WANT ANY MORE MAIL OFFERING ME NEW ONES. HOW 
+CAN I STOP IT? 
+
+A. There are three main credit bureaus in the United States, and 
+they've agreed that if someone contacts one of them and asks to 
+be removed from junk mail (er, ""direct mail"") lists and 
+telemarketing phone lists, they'll all honor the request. 
+
+Full Answer:
+http://www.fool.com/m.asp?i=562069
+
+-----------------------------------------------------------------
+YOUR MONEY 
+
+RESOLUTIONS YOU CAN KEEP
+Let's face it, New Year's resolutions are mostly nightmares that 
+hang over our heads like that dark cloud that follows Eeyore 
+everywhere he goes. We mostly fail to keep our resolutions 
+because they are too vague and imply guilt-inducing judgment. 1. 
+Live every moment. 2. Be a good person. 3. Lose a lot of weight. 
+No pressure. Right? Wrong. 
+http://www.lnksrv.com/m.asp?i=562070
+
+Don't despair. We've put together a quick, proactive to-do list 
+that is actually doable. This year's resolution: Save big bucks 
+now and live comfortably in the future. Now that's a resolution 
+you can get behind. Let's get started! 
+
+1. DIAL AWAY YOUR DEBT 
+It's true. You can lower your credit card interest rates with 
+one phone call.
+http://www.fool.com/m.asp?i=562071 
+
+2. GET MORE FROM YOUR SAVINGS
+Don't stash your short-term cash savings under your mattress. 
+Earn higher yields on CDs, money markets, and more. 
+http://www.fool.com/m.asp?i=562072
+
+3. INVEST FOR LESS 
+Make sure your broker isn't charging you too much. Compare rates 
+and hire a new one in only 60 seconds. 
+http://www.fool.com/m.asp?i=562073
+
+4. RETIRE EARLY
+Thanks to recent tax law changes, you can start pitching in more 
+to your retirement accounts.
+http://www.fool.com/m.asp?i=562074
+
+5. REFINANCE AND SAVE 
+When interest rates drop, some homeowners have the opportunity 
+to save big money.
+http://www.fool.com/m.asp?i=562075
+
+If this list seems too daunting, and you don't want to go it 
+alone, you can get some unbiased, professional advice about your 
+finances with TMF Money Advisor. In fact, we're so excited about 
+this service, we are offering a free one-month trial 
+subscription. For more information, go here. 
+http://www.fool.com/m.asp?i=562076
+
+For more money-saving tips to aid your journey to Financial 
+Independence, visit our Personal Finance area. 
+http://www.fool.com/m.asp?i=562077
+
+-----------------------------------------------------------------
+SPOTLIGHT
+
+SHOULD ALL MY SAVINGS BE IN THE MARKET?
+Um, no. 
+
+We are big supporters of the idea that all of your long-term 
+money should be in the stock market. But over the short term, 
+the market is too volatile. Buying stocks for short-term gain is 
+really speculating, not investing. Would you have wanted to have 
+your emergency fund, or your house down payment, or your kid's 
+tuition in the Nasdaq at its height on March 10, 2000? If you 
+can't afford or wait out a 30% drop in the value of your 
+savings, keep it out of the market.
+
+Of course, we're not just going to leave you hanging. To figure 
+out the best place to keep your short-term savings, visit our 
+nifty Savings Center. 
+http://www.fool.com/m.asp?i=562078
+
+-----------------------------------------------------------------
+COMMUNITY TIPS
+
+DO (AT LEAST) ONE THING DIFFERENTLY
+Folks on the Living Below Your Means discussion board have been 
+sharing at least one thing they are going to do differently in 
+2002 to save money. 
+
+-I am going to make sure I carry my coupon envelope in my purse 
+ so I don't find myself at the grocery store buying a bunch of 
+ stuff on which I could save a bunch of money if I hadn't left my 
+ coupons at home. 
+
+-Make sure I get reimbursed for every dime my company owes me. I 
+ have a bad habit of not filing expense reports for little stuff, 
+ like 10 miles of mileage to go to a mediation. Ten miles is 
+ $3.10 and if I do that 10 times a year, that's more than 30 
+ bucks, and definitely worth filing an expense report for. 
+
+-I'm going to make at least one crock-pot meal a week so I don't 
+ get tempted to go out and buy something to eat. Fridays would be 
+ a great time to do this. 
+
+-Either cut down on the long-distance phone calls, or else find 
+ a cheaper long-distance plan.
+
+-Document everything that I give to charity, including the 
+ clothes and books, so that I can deduct it from my taxes. 
+
+-Keep turning down the thermostat at night and when I leave the 
+ house. Run my humidifier (moist air is cheaper to heat). 
+
+Have any tips of your own? Add to the growing list here.
+http://www.fool.com/m.asp?i=562079
+
+=================================================================
+			
+SPONSORED BY: Datek
+Datek Online. Built to trade.
+*Proprietary auto routing technology | *$9.99 commission 
+for online equity trades | *60-second execution commitment.
+Apply for a Datek Account Now!
+http://www.lnksrv.com/m.asp?i=562080
+			
+=================================================================
+
+My Portfolio: http://www.fool.com/m.asp?i=562081
+My Discussion Boards: http://www.fool.com/m.asp?i=562082
+
+	 
+WANNA TAKE THE SHORTCUT?
+Check out our new Crash Courses, the fastest way to get
+your finances in order. Get results in less than an hour, for
+just $10. Try one today!
+http://www.fool.com/m.asp?i=562083
+
+PERKS FOR FOOLS ONLY
+Get free stuff and special offers, just for you!
+http://www.fool.com/m.asp?i=562084
+
+CUSTOMER SERVICE
+Ask our staff for help with email delivery problems.
+http://www.fool.com/m.asp?i=562085
+ 
+UNSUBSCRIBE
+Here's how to unsubscribe or change your settings.
+http://www.fool.com/community/freemail/freemaillogin.asp?email=mkettler@home.com
+
+_____________________________________________________
+Copyright (c) 1995-2001 The Motley Fool. All rights reserved.
+Legal Information: http://www.fool.com/m.asp?i=562086
+
+
+
+MsgId: msg-7678-2002-01-02_13-22-47-4816731_25_Plain_MessageAddress.msg-13:51:39(1-02-2002)
+X-Version: mailer-sender-master,v 1.84 
+X-Version: mailer-sender-daemon,v 1.84 
+Message-Recipient: mkettler@home.com
+",.com,True,0,,False
+Re: New Sequences Window,"--==_Exmh_-199405358P
+Content-Type: text/plain; charset=us-ascii
+
+> From:  Valdis.Kletnieks@vt.edu
+> Date:  Wed, 21 Aug 2002 02:36:56 -0400
+>
+> --==_Exmh_778588528P
+> Content-Type: text/plain; charset=us-ascii
+> 
+> On Tue, 20 Aug 2002 22:51:52 EDT, Valdis.Kletnieks@vt.edu said:
+> 
+> > Ever tried to get MH to *not* have a 'pseq' sequence?  I suspect everybod
+> y's
+> > looking at a big box that has unseen and pseq in it.  Might want to add
+> > 'pseq' to the 'hide by default' list....
+> 
+> Was it intended that if you added a sequence to the 'never show' list that
+> it not take effect till you stopped and restarted exmh?  I added 'pseq',
+> then hit 'save' for Preferences - didn't take effect till I restarted.
+
+No it wasn't, and at one point it worked fine.  I'll check and see why it 
+stopped working.
+
+Chris
+-- 
+Chris Garrigues                 http://www.DeepEddy.Com/~cwg/
+virCIO                          http://www.virCIO.Com
+716 Congress, Suite 200
+Austin, TX  78701		+1 512 374 0500
+
+  World War III:  The Wrong-Doers Vs. the Evil-Doers.
+
+
+
+
+--==_Exmh_-199405358P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: Exmh version 2.2_20000822 06/23/2000
+
+iD8DBQE9Y66GK9b4h5R0IUIRAsIYAJ4zEJm2B6tIQDD4MQu7LbapzZpAsgCcCJtl
+bDfb8a2wKMtAgWylF44XooU=
+=WC8I
+-----END PGP SIGNATURE-----
+
+--==_Exmh_-199405358P--
+
+
+
+_______________________________________________
+Exmh-workers mailing list
+Exmh-workers@redhat.com
+https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+",.com,True,0,,False
+Malcolm in the Middle Sweepstakes Prize Notification,"May 7, 2002
+
+
+Dear rod-3ds@arsecandle.org:
+
+
+Congratulations!  On behalf of Frito-Lay, Inc., we are pleased to advise you
+ that you've won Fourth Prize in the 3D's(R) Malcolm in the Middle(TM)
+ Sweepstakes.   Fourth Prize consists of 1 manufacturer's coupon redeemable at
+ participating retailers for 1 free bag of 3D's(R) brand snacks (up to 7 oz.
+ size), with an approximate retail value of $2.59 and an expiration date of
+ 12/31/02.
+
+Follow these instructions to claim your prize:
+
+1.	Print out this email message.
+
+2.	Complete ALL of the information requested.  Print clearly and legibly.  Sign
+ where indicated.
+
+3.	If you are under 18 or otherwise under the legal age of majority in your
+ state, your parent or legal guardian must co-sign where indicated below.
+
+4.	Mail the completed and signed form to:  3D's(R) Malcolm in the Middle(TM)
+ Sweepstakes, Redemption Center, PO Box 1520, Elmhurst IL 60126.  WE MUST
+ RECEIVE THIS FORM NO LATER THAN MAY 28, 2002 IN ORDER TO SEND YOU THE PRIZE.
+
+PLEASE DO NOT ATTEMPT TO REPLY TO THIS EMAIL.  THE ONLY WAY TO CLAIM THE PRIZE
+ IS TO FOLLOW THE INSTRUCTIONS ABOVE.  YOUR PRIZE WILL BE MAILED TO YOU WITHIN 6
+ TO 8 WEEKS OF RECEIPT OF THIS FORM.
+
+Once again, on behalf of Frito-Lay, Inc., congratulations and thank you for
+ participating in the Game.
+
+					
+Sincerely,
+
+
+Game Security Services
+
+
+
+
+
+
+
+
+
+
+PRIZE ACCEPTANCE/RELEASE AND INDEMNIFICATION FORM
+3D's(R) Malcolm in the Middle(TM) Sweepstakes
+
+
+1.	My social security number is:  _______________________________
+
+2.	My date of birth is:   _______________________________________
+
+3.	My telephone number is:   __________________________________
+
+4.	My home address is:   _____________________________________
+
+			      _____________________________________
+
+5.	My email address is:   _____________________________________
+
+6.	I am a legal resident of the State of:   _________________________
+
+7.	I am above the legal age of majority in my state of residence or my parent or
+ legal guardian has co-signed below.
+
+8.	I represent that I (1) have fully complied with all of the Official Rules of
+ the Sweepstakes, and (2) have not committed any fraud or deception in
+ participating in the Sweepstakes or in accepting the Prize.
+
+9.	By accepting the prize, I (and my parent/legal guardian if I am a minor)
+ agree to release Frito-Lay, Inc. (""Sponsor""), FOX Broadcasting Company, 20th
+ Century FOX Television, Regency Entertainment, their respective parent,
+ subsidiary or affiliated companies, distributors, printing suppliers for this
+ promotion, advertising, fulfillment, judging or promotion agencies,
+ participating retailers, and all of their respective officers, directors,
+ employees, representatives and agents from any liability for, and to hold them
+ harmless against, any liability for injuries, losses or damages of any kind to
+ persons or property resulting in whole or in part, directly or indirectly, from
+ participation in the sweepstakes or acceptance, possession, misuse or use of
+ any prize. 
+
+
+
+Name [print full name]:	_______________________________
+
+Signature:		_______________________________
+
+Date:			_______________________________
+
+
+
+IF WINNER IS A MINOR IN HIS OR HER STATE OF RESIDENCE, WINNER'S PARENT OR LEGAL
+ GUARDIAN MUST COMPLETE THE INFORMATION BELOW: 
+
+I am the parent or legal guardian of the winner who has signed the foregoing
+ Release. I AGREE TO THE TERMS OF THE RELEASE AND CONSENT TO THE ACCEPTANCE OF
+ THE PRIZE ON THE WINNER'S BEHALF.
+
+
+
+Parent/Guardian's Name [print full name]:	_______________________________
+
+Parent/Guardian's Signature:			_______________________________
+
+Date:						_______________________________
+
+
+
+
+
+
+
+2002 OFFICIAL RULES
+3D's(R) Malcolm in the Middle(TM) Sweepstakes
+
+OPEN ONLY TO LEGAL U.S. RESIDENTS LOCATED IN THE U.S. AT THE TIME OF ENTRY. VOID
+ ELSEWHERE AND WHEREVER PROHIBITED BY LAW, INCLUDING BUT NOT LIMITED TO,
+ FLORIDA, PUERTO RICO, U.S. VIRGIN ISLANDS AND U.S. MILITARY INSTALLATIONS
+ LOCATED IN A FOREIGN COUNTRY.
+
+NO PURCHASE NECESSARY. PURCHASE DOES NOT IMPROVE CHANCE OF WINNING. MANY WILL
+ ENTER. FEW WILL WIN. ODDS DEPEND ON NUMBER OF ENTRIES RECEIVED.
+
+1. ELIGIBILITY: Open only to legal U.S. residents located in the U.S. at the
+ time of entry, excluding residents of Florida, Puerto Rico, the U.S. Virgin
+ Islands and U.S. military installations located in a foreign country, who had
+ online access on or before 1/26/02. Employees, contractors, directors and
+ officers of Frito-Lay, Inc. (""Sponsor""), FOX Broadcasting Company, 20th Century
+ FOX Television, Regency Entertainment, their respective parent, subsidiary and
+ affiliated companies, distributors, printing suppliers for this promotion,
+ advertising, fulfillment, judging and promotion agencies (collectively,
+ ""Promotion Parties""), and their immediate family members and those living in
+ their same households are not eligible.
+
+2. TO ENTER: Beginning 12:00:01 a.m. E.T. 1/27/02, log on to www.3DsFun.com and
+ click on the link on the home page to locate the official entry form. Follow
+ on-screen directions to properly complete an entry form and send it
+ electronically by 11:59:59 p.m. E.T. 2/11/02. In order for entry to be valid,
+ entrants must click on the ""I accept"" button on the web site. All entries must
+ be received no later than 11:59:59 p.m. E.T. on 2/13/02. LIMIT ONE ENTRY PER
+ PERSON AND/OR E-MAIL ADDRESS. SUBSEQUENT ENTRIES WILL BE DISQUALIFIED.
+ Promotion Parties assume no responsibility for lost, late, misdirected, stolen,
+ undelivered, garbled, damaged, or incomplete entries, or for any computer,
+ online, telephone or technical malfunctions that may occur. Promotion Parties
+ also assume no responsibility for any technical problems in connection with
+ transmission or receipt of online entries including faulty electronic data
+ transmission, traffic congestion on the Internet or on the web site, hardware
+ or software error, equipment failure or malfunction, or other online
+ communications problems. In the event of a dispute regarding the identity of
+ the person submitting an online entry, entries will be declared made by the
+ authorized account holder of the e-mail address submitted at the time of entry.
+ ""Authorized account holder"" is defined as the natural person who is assigned to
+ an e-mail address by an Internet Access provider, online service provider, or
+ other organization (e.g., business, educational institution, etc.) responsible
+ for assigning e-mail addresses for the domain associated with the submitted
+ e-mail address. All entries become the property of Sponsor and will not be
+ returned to entrant. Automated entries (including but not limited to entries
+ made using any script, macro, bot, or sweepstakes service) and facsimiles are
+ not allowed. Potential winner may be requested to provide Sponsor with proof
+ that the potential winner is the authorized account holder of the e-mail
+ address associated with the winning entry.
+
+3. WINNER SELECTION: Winners will be selected in a random drawing to take place
+ on or about 2/28/02 by an independent judging organization, the judge, whose
+ decisions are final and binding on all matters related to the sweepstakes. Odds
+ of winning depend on the number of eligible entries received. Winners will be
+ notified by e-mail. If any prize or correspondence (including e-mail) regarding
+ any prize is returned as non-deliverable, prize may be forfeited and an
+ alternate winner selected.  Winners (or winner's parent or legal guardian, if
+ winner is a minor) and Grand Prize winner's travel companions (or companion's
+ parent or legal guardian for any companion who is a minor) will be required to
+ complete, sign and return either a Prize Acceptance/Release and Indemnification
+ form or an Affidavit of Eligibility/Liability Release (as directed by Sponsor),
+ and, where lawful, a Publicity Release within twenty-one (21) days of winners'
+ receipt of documents via e-mail or prize may be forfeited. Grand prize winner
+ (or winner's parent or legal guardian, if winner is a minor) and winner's
+ travel companions will also be required to complete, sign and return a set
+ visit release together with completed I-9 and W-4 forms in order to visit the
+ set of Malcolm in the Middle(TM) as described below in paragraph 4. Prizes won
+ by minors will be awarded to a parent or legal guardian who must sign all
+ required documents.
+
+4. PRIZES: ONE (1) GRAND PRIZE: One trip for winner and 3 travel companions of
+ winner's choosing to Los Angeles, CA to be completed on or before 12/31/02.
+ Trip is for 4 persons but can include up to 8 persons under the following
+ conditions: Among winner and the 3 selected travel companions, each traveler
+ who is a minor in his/her state of residence must be accompanied by a parent or
+ legal guardian of such minor at all times; Sponsor will provide trip
+ accommodations for one parent or legal guardian to accompany him/her. Trip
+ includes round-trip coach air transportation from a major gateway airport near
+ winner's residence within the U.S.; 3 days/2 nights double occupancy standard
+ hotel accommodations in the Los Angeles, CA metropolitan area (airport, carrier
+ and hotel to be selected by Sponsor); accompanied admission to the set of FOX's
+ Malcolm in the Middle(TM) (""MIM"") during a non-filming period selected by FOX
+ to meet Frankie Muniz; and ground transportation between the California airport
+ and hotel, and between the hotel and the MIM set. Grand Prize winner will also
+ receive a check for $2,500, 1 MIM script autographed by Frankie Muniz, one
+ MIM/3D's(R) brand snacks VIP pack (including 1 backpack, 1 book, 1 hat, 1
+ t-shirt, and 1 case consisting of fifteen 7 oz. bags of RUFFLES(R) 3D's(R)
+ brand Maximum Cheddar flavored snacks). Approximate Retail Value (""ARV""):
+ Between $7,500 and $15,000, depending on winner's point of travel origin and
+ how many persons (up to 8) take the trip. All meals, gratuities, and other
+ expenses associated with prize trip not specifically mentioned in these rules
+ are the winner's sole responsibility. All travel must be taken by the date
+ specified; no alternative travel dates are available. Winner, travel
+ companions, and any necessary parent(s)/legal guardian(s) (the ""travel party"")
+ must travel on same itinerary. In the event that circumstances prevent the
+ travel party from being able to attend the set visit or meet Frankie Muniz, or
+ limit this portion of the Grand Prize in any way, the winner agrees that the
+ Promotion Parties shall have no obligations other than to deliver the remainder
+ of the Grand Prize. FIVE (5) FIRST PRIZES: Manufacturer's coupons redeemable at
+ participating retailers for 52 free 7 oz. bags of any 3D'S(R) brand snacks
+ (with a retail value up to $2.59). ARV: $135. TEN (10) SECOND PRIZES: One
+ MIM/3D's(R) brand snacks VIP pack (including 1 backpack, 1 book, 1 hat, ,1
+ t-shirt, and 1 case consisting of fifteen 7 oz. bags of RUFFLES(R) 3D's(R)
+ brand Maximum Cheddar flavored snacks). ARV: $100. TWENTY (20) THIRD PRIZES:
+ One MIM t-shirt and one MIM hat. ARV: $30. 100 FOURTH PRIZES: One
+ manufacturer's coupon redeemable at participating retailers for 1 free bag of
+ 3D's(R) brand snacks (up to 7 oz. size). ARV: $2.59. Free product coupons
+ expire and must be redeemed by 12/31/02. No substitution, cash redemptions or
+ transfer of prizes is permitted except at Sponsor's sole discretion. If a prize
+ cannot be awarded for any reason, Sponsor reserves the right to substitute any
+ prize with another prize of equal or greater value. Any portion of a prize not
+ accepted by a winner shall be forfeited. All prizes will be awarded.
+
+5. GENERAL CONDITIONS: Sweepstakes is not to be used in connection with any form
+ of gambling. Prizes will be awarded and/or delivered only to addresses within
+ the United States. Prize winners are solely responsible for any taxes on
+ Prizes. This sweepstakes is subject to all federal, state and local laws, and
+ Grand Prize winner will receive an IRS Form 1099 for the approximate retail
+ value of the prize. By participating, entrants (and their parent(s)/legal
+ guardian(s) if entrants are minors) agree to these Official Rules, Sponsor's
+ Privacy Policy (available at www.3DsFun.com) and to the decisions of the judge,
+ which are final and binding in all respects. If for any reason the sweepstakes
+ is not capable of running as planned; including infection by computer virus,
+ bugs, tampering, unauthorized intervention, fraud, technical failures, or any
+ other causes which corrupt or affect the administration, security, fairness,
+ integrity or proper conduct of the sweepstakes, Sponsor reserves the right, at
+ its sole discretion, to disqualify any individual who is responsible or who
+ tampers with the entry process, and to cancel or terminate the sweepstakes and
+ select the winners from all eligible entries received prior to the cancellation
+ or termination. This sweepstakes is offered only in the United States and is
+ governed by the laws of the state of Texas, with venue in Dallas County, Texas,
+ and all claims must be resolved in the federal or state courts of Dallas
+ County, Texas.
+
+6. LIMITATIONS OF LIABILITY AND RELEASE: By accepting prize, winners (and
+ winners' parent(s)/legal guardian(s) if winners are minors) agree that the
+ Promotion Parties, participating retailers, and all of their respective
+ officers, directors, employees, representatives and agents will have no
+ liability whatsoever for, and shall be held harmless by winners against, any
+ liability for injuries, losses or damages of any kind to persons or property
+ resulting in whole or in part, directly or indirectly, from participation in
+ the sweepstakes or acceptance, possession, misuse or use of any prize. Except
+ if winners are residents of TN or where prohibited by law, winners (and
+ winners' parent(s)/legal guardian(s) if winners are minors) grant (and agree to
+ confirm this grant in writing, if requested) permission for Sponsor and those
+ acting under its authority to use his/her name, photograph, voice and/or
+ likeness, for advertising and/or publicity purposes without additional
+ compensation.
+
+7. WINNERS' LIST: For a list of winners of prizes valued over $25, mail a
+ self-addressed, stamped envelope to be postmarked by 2/11/02 and received by
+ 2/18/02 to: Malcolm in the Middle(TM) Sweepstakes, Winners' List Requests, P.O.
+ Box 1518, Elmhurst, IL 60126.
+
+8. SPONSOR: Frito-Lay, Inc., 7701 Legacy Drive, Plano, TX 75024-4099.
+
+(c)2002. Frito-Lay, Inc. All rights reserved.
+
+Malcolm in the Middle(TM) and (c)2002 Twentieth Century Fox Film Corporation,
+ Regency Entertainment (USA) Inc. and Monarchy Enterprises S.a.r.l. All rights
+ reserved.
+(c)2002. FOX BROADCASTING COMPANY
+
+
+
+",.com,True,0,,False
+Re: New Sequences Window,"--==_Exmh_-196335410P
+Content-Type: text/plain; charset=us-ascii
+
+> From:  Robert Elz 
+> Date:  Wed, 21 Aug 2002 15:01:07 +0700
+>
+>     Date:        Tue, 20 Aug 2002 22:51:52 -0400
+>     From:        Valdis.Kletnieks@vt.edu
+>     Message-ID:  
+> 
+>   | Ever tried to get MH to *not* have a 'pseq' sequence?
+> 
+> Hmm - I've been using MH for a long time (since well before there were
+> sequences) and I don't think I've ever seen a ""pseq"" ...
+> 
+> I'm guessing that that's the sequence that you have ""pick"" create
+> As I recall it, it has no default sequence name, so the sequence names
+> that people use will tend to vary from person to person won't they
+> (except as MH configurations move around institutions by osmosis).
+> 
+> I've always used ""sel"" for that purpose.
+> 
+> I kind of doubt that any pre built-in sequence name is going to be
+> very general.   Even ""unseen"" can be changed (fortunately that one
+> is easy to find in the MH profile - though whether exmh does that,
+> os just uses ""unseen"" I haven't bothered to find out).
+
+I've never seen pseq either.
+
+BTW, it's kinda amusing for a short while to show the cur sequence.  Watching 
+that helped me find a number of bugs.
+
+Chris
+
+-- 
+Chris Garrigues                 http://www.DeepEddy.Com/~cwg/
+virCIO                          http://www.virCIO.Com
+716 Congress, Suite 200
+Austin, TX  78701		+1 512 374 0500
+
+  World War III:  The Wrong-Doers Vs. the Evil-Doers.
+
+
+
+
+--==_Exmh_-196335410P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: Exmh version 2.2_20000822 06/23/2000
+
+iD8DBQE9Y676K9b4h5R0IUIRAt/rAJ9huaTFeBLHluu/vhFc1GWy3X+YywCgh0XF
+o7+XfPSIQbz9hkFFBMTYd1k=
+=969s
+-----END PGP SIGNATURE-----
+
+--==_Exmh_-196335410P--
+
+
+
+_______________________________________________
+Exmh-workers mailing list
+Exmh-workers@redhat.com
+https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+",.com,True,0,,False
+Automated 30 day renewal reminder 2002-05-27,"The following domains that are registered as belonging
+to you are due to expire within the next 60 days. If
+you would like to renew them, please contact
+nic@starflung.com; otherwise they will be deactivated
+and may be registered by another.
+
+
+Domain Name, Expiry Date
+nutmegclothing.com, 2002-06-26
+",.com,True,0,,False
+"CAUCE NEWS, Vol 6, No 2, June 2002","-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+			      CAUCE NEWS
+			  Volume 6, Number 2
+			      June, 2002
+
+In this issue:
+
+* Progress of Senate anti-spam bill
+* European Union bans spam
+
+IF YOU DON'T KNOW WHY YOU GOT THIS MESSAGE: Please see the
+""About This Message"" section at the end.
+
+- --------------------------------------------------------------
+
+* Progress of Senate anti-spam bill
+
+Over a year ago, Sen. Conrad Burns (R-MT) introduced S.630, the CAN
+SPAM Act of 2001. This bill would require UCE to have a valid return
+address to facilitate consumers' removal from spam lists. It would
+place enforcement in the hands of the Federal Trade Commission, and
+state Attorneys General. It would also permit Internet Service
+Providers (ISPs) to enforce violations, up to $10 per illegal spam.
+It would preempt any stricter state anti-spam laws.
+
+The Senate Commerce Committee considered the bill on May 17th, and
+reported it out largely unchanged.  It's not now scheduled for further
+action in the Senate.
+
+CAUCE has always opposed this bill, since we believe it would lead to
+more spam, not less.  When South Korea passed a similar opt-out law
+last year, spam from Korea soon increased by a factor of 10.
+
+Our April 2001 press release goes into more detail about the problems
+with S.630:
+
+ http://www.cauce.org/pressreleases/pr-s630.shtml
+
+We're pleased that the Congress is looking at spam issues again, and
+hope that in the future we can help them create an effective bill that
+the entire Internet community can support.
+
+- --------------------------------------------------------------
+
+* European Union bans spam
+
+GLOBAL INTERNET COMMUNITY APPLAUDS EUROPEAN ANTI-SPAM VOTE
+
+May 31, 2002 - The Coalition Against Unsolicited Commercial E-Mail
+(CAUCE), EuroCAUCE, CAUCE India, CAUCE Canada and the Coalition Against
+Unsolicited Bulk E-Mail, Australia (CAUBE.au) today applauded the decision
+by the European Parliament to protect European Internet users from the
+practice of unsolicited e-mail advertisements. Yesterday's vote will turn
+Europe into a virtual ""spam-free zone"" after the formal adoption of the
+directive, making it illegal to send unsolicited e-mail, text message or
+other similar advertisements to individuals with whom companies do not
+have a preexisting business relationship.
+
+""This is a tremendous day for European Internet users,"" said EuroCAUCE
+Chairman George Mills. ""We are extremely pleased that the European
+Parliament has listened to the citizens of its member countries and added
+the right to be left alone by spammers to its efforts to protect the
+privacy of Europeans.""
+
+While six European Union member countries had already formalized ""opt-in""
+in their national laws and regulations, yesterday's vote should turn all
+of Europe into a spam-free zone by the end of 2003.
+
+""Unfortunately, the rest of the world's Internet-using countries,
+including the United States, now lag behind Europe in their protection
+of Internet users,"" said CAUCE Chairman Scott Hazen Mueller. ""This is
+a tremendous first step, but the rest of the world now needs to follow
+Europe's lead and unite behind protection of Internet users and
+network owners from abusive and costly unsolicited e-mail
+advertising.""
+
+""This decision is the direct result of Internet users throughout the
+European Union standing up for their rights, and Members of the
+European Parliament listening to their constituents,"" said Mills. ""Our
+members and our volunteers performed an integral part of this process,
+translating, lobbying and educating their representatives.""
+
+More information on the E.U. directive is available on the European
+Parliament's Web site ,
+and a EuroCAUCE analysis is available at
+. More information on
+the international CAUCE network of affiliate organizations is
+available at .
+
+- --------------------------------------------------------------
+
+About This Message:
+
+This message was written and broadcast by the Coalition Against
+Unsolicited Commercial E-Mail. It is copyrighted (c) 2002 by the
+Coalition Against Unsolicited Commercial E-Mail.
+
+We encourage redistribution of this message or items from it, as long
+as they are not spammed anywhere, are on-topic for any forum to which
+you send them, and include our copyright notice.  When in doubt, post
+the URL of our site (http://www.cauce.org) instead, or put it in your
+signature.  Press, broadcast, and Internet media may treat this
+material as they would a press release. For other commercial
+reproduction rights, contact John Levine .
+
+*************************************************************************
+You have received this message because your address was signed up for
+the CAUCE-ANNOUNCE mailing list. If you do not want to receive any
+further messages from this list or think you were subscribed without
+your knowledge, please use the list's home page
+
+       http://lists.cauce.org/mailman/listinfo/cauce-announce
+
+or send mail to cauce-announce-request@cauce.org with a subject of
+""unsubscribe,"" or contact J.D. Falk  to be removed
+manually. We exist to eradicate unsolicited e-mail, and, unlike
+spammers, will honor ""remove"" requests.
+
+On the other hand, if a friend passed along this message to you and
+you would like to receive the CAUCE NEWS in the future, visit the
+CAUCE web site at http://www.cauce.org to join, or send a message to
+cauce-announce-request@cauce.org with a subject of ""subscribe"" if you
+want to subscribe without joining.
+*************************************************************************
+
+For other questions or comments about this message, contact John
+Levine .
+
+Note to PGP users: your editor has a new longer key, which you'll need
+to verify the signature on this message.  It's available on the usual
+key servers.
+
+				 # #
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (BSD/OS)
+Comment: For info see http://www.gnupg.org
+
+iEYEARECAAYFAjz+Ey4ACgkQkEiFRdeC/kWGPwCeLJwc5kU+dIWdYvZE4fr1DTRO
+HfEAnjuW22VH9mi1sPPtUuk+6yUpyABW
+=3DL1WX
+-----END PGP SIGNATURE-----
+",.org,False,0,,False
+Re: New Sequences Window,"--==_Exmh_-195849857P
+Content-Type: text/plain; charset=us-ascii
+
+Ouch...I'll get right on it.
+
+> From:  Robert Elz 
+> Date:  Wed, 21 Aug 2002 19:30:01 +0700
+>
+>     Date:        Tue, 20 Aug 2002 17:27:47 -0500
+>     From:        Chris Garrigues 
+>     Message-ID:  
+> 
+> 
+>   | I'm hoping that all people with no additional sequences will notice are
+>   | purely cosmetic changes.
+> 
+> Well, first, when exmh (the latest one with your changes) starts, I get...
+> 
+> can't read ""flist(totalcount,unseen)"": no such element in array
+>     while executing
+> ""if {$flist(totalcount,$mhProfile(unseen-sequence)) > 0} {
+> 	FlagInner spool iconspool labelup
+>     } else {
+> 	FlagInner down icondown labeldown
+>     }""
+>     (procedure ""Flag_MsgSeen"" line 3)
+>     invoked from within
+> ""Flag_MsgSeen""
+>     (procedure ""MsgSeen"" line 8)
+>     invoked from within
+> ""MsgSeen $msgid""
+>     (procedure ""MsgShow"" line 12)
+>     invoked from within
+> ""MsgShow $msgid""
+>     (procedure ""MsgChange"" line 17)
+>     invoked from within
+> ""MsgChange 4862 show""
+>     invoked from within
+> ""time [list MsgChange $msgid $show""
+>     (procedure ""Msg_Change"" line 3)
+>     invoked from within
+> ""Msg_Change $msg(id) $show""
+>     (procedure ""Msg_Show"" line 7)
+>     invoked from within
+> ""Msg_Show cur""
+>     (""eval"" body line 1)
+>     invoked from within
+> ""eval $msgShowProc""
+>     (procedure ""FolderChange"" line 55)
+>     invoked from within
+> ""FolderChange inbox {Msg_Show cur}""
+>     invoked from within
+> ""time [list  FolderChange $folder $msgShowProc""
+>     (procedure ""Folder_Change"" line 3)
+>     invoked from within
+> ""Folder_Change $exmh(folder)""
+>     (procedure ""Exmh"" line 101)
+>     invoked from within
+> ""Exmh""
+>     (""after"" script)
+> 
+> which is probably related to my not having an ""unseen"" sequence anywhere
+> (certainly not in inbox) - I read all of my outstanding mail before I
+> tried this new exmh ...
+> 
+> Second, I've been used to having a key binding which was to Msg_MarkUnseen
+> which doesn't seem to exist any more, and I'm not sure what I should replac
+> e
+> that with.   There's obviously a way as the ""Sequences"" menu does this.
+> The ""Mark Unseen"" menu entry in the message ""More"" menu is still wanting
+> that function as well...
+> 
+>   | For those who have other sequences defined, the window will widen to
+>   | display the other sequences.
+> 
+> Any chance of having that lengthen instead?   I like all my exmh stuff
+> in nice columns (fits the display better).   That is, I use the detached
+> folder list, one column.   The main exmh window takes up full screen,
+> top to bottom, but less than half the width, etc...
+> 
+> I have space for more sequences, in the ""unseen"" window, as long as they
+> remain once nice narrow window (best would be if the sequences could be
+> ordered by some preference, then ones which didn't fit would just fall
+> off the bottom, and not be shown).
+> 
+> I'd also prefer it if that window had no unusual background colouring,
+> just one constant colour - I have been running the unseen window with
+> background black, on a root window that is all black, with no borders or
+> other decorations, but made ""sticky"" - the appearance is just like the
+> folders with unseen messages (and their counts) are written into the
+> root window (because it is sticky, this small display follows me around
+> and do I can see when new mail needs processing).
+> 
+> I also find that I tend to have a bunch of sequences that only ever occur
+> in one folder (some I had forgotten I ever created).  So in addition to
+> the ""sequences to always show"" and ""sequences to never show"", a
+> preference to only show sequences that occur in more than one folder
+> would be useful, and then have the sequences that occor only in the
+> folder I'm visiting appear in the list when that folder is current.
+> This is just to keep the list size somewhat manageable while remaining
+> productive (I quite often use a sequence to remember a particular message
+> in a folder - the name is used only there, and only for one message,
+> it gives me a handle on the message which remains as the folder is
+> packed, sorted, etc).
+> 
+> I haven't updated my exmh for some time now, so I'm not sure if this
+> next one is new, or just new since 2.5, but the Sequences menu (on the
+> bar with New Flist Search ...) only contains ""unseen"" and ""urgent"".
+> It would be useful if it contained all of the sequences that the folder
+> happens to have defined.   A ""New sequence"" entry would also be useful
+> (to mark the message with a sequence name that didn't previously exist,
+> which can be done now using ""Search"" and the pick interface, but is
+> clumsy that way)
+> 
+> Actually, you once could, now when I try this, entering a sequence name
+> in the pick box, and a single message number, or a range N-N in the
+> list of messages, and no pick attributes at all, I now get ...
+> 
+> syntax error in expression ""int(1+1+(1 hit-1)*(3868-1-2)/(4878-1))""
+>     while executing
+> ""expr int($minlineno+1+($msgid-$minmsgid)*($maxlineno-$minlineno-2)/($maxms
+> gid-$minmsgid))""
+>     (procedure ""Ftoc_FindMsg"" line 46)
+>     invoked from within
+> ""Ftoc_FindMsg $msg""
+>     (procedure ""Ftoc_FindMsgs"" line 5)
+>     invoked from within
+> ""Ftoc_FindMsgs $msgids""
+>     (procedure ""Ftoc_PickMsgs"" line 5)
+>     invoked from within
+> ""Ftoc_PickMsgs $pick(ids) $pick(addtosel)""
+>     (procedure ""PickInner"" line 13)
+>     invoked from within
+> ""PickInner {exec pick +inbox -list} {4852 -sequence mercury}""
+>     (""uplevel"" body line 1)
+>     invoked from within
+> ""uplevel #0 $cmd""
+>     (procedure ""busyCursorInner"" line 8)
+>     invoked from within
+> ""busyCursorInner $cmd $widgets""
+>     (procedure ""busyCursorHack"" line 32)
+>     invoked from within
+> ""busyCursorHack $args""
+>     (""cursor"" arm line 1)
+>     invoked from within
+> ""switch $busy(style) {
+> 	icon		{busyIcon $args}
+> 	cursorAll	{busyCursor $args}
+> 	cursor		{busyCursorHack $args}
+> 	default		{eval $args}
+>     }""
+>     (procedure ""busy"" line 3)
+>     invoked from within
+> ""busy PickInner $cmd $msgs""
+>     (procedure ""Pick_It"" line 51)
+>     invoked from within
+> ""Pick_It""
+>     invoked from within
+> "".pick.but.pick invoke""
+>     (""uplevel"" body line 1)
+>     invoked from within
+> ""uplevel #0 [list $w invoke]""
+>     (procedure ""tkButtonUp"" line 7)
+>     invoked from within
+> ""tkButtonUp .pick.but.pick
+> ""
+>     (command bound to event)
+> 
+> It has been ages since I did this last though.   I tried adding a Subject
+> to pick on (easy as I know what's in the message...) which made no differen
+> ce.
+> Looks as if something is now saying ""1 hit"" when before it didn't, or
+> similar.
+> 
+>   | I've also changed the ftoc colorization as discussed briefly on the lis
+> t a 
+>   | week or so ago.
+> 
+> Any chance of making the current message a little brighter background?
+> Just to make it stand out a fraction more than it does (maybe this is
+> more apparent to me than many, as I use very small fonts everywhere,
+> the background of the ftoc line isn't very wide).
+> 
+> Hope this helps.
+> 
+> kre
+> 
+> 
+> 
+> _______________________________________________
+> Exmh-workers mailing list
+> Exmh-workers@redhat.com
+> https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+-- 
+Chris Garrigues                 http://www.DeepEddy.Com/~cwg/
+virCIO                          http://www.virCIO.Com
+716 Congress, Suite 200
+Austin, TX  78701		+1 512 374 0500
+
+  World War III:  The Wrong-Doers Vs. the Evil-Doers.
+
+
+
+
+--==_Exmh_-195849857P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.6 (GNU/Linux)
+Comment: Exmh version 2.2_20000822 06/23/2000
+
+iD8DBQE9Y68ZK9b4h5R0IUIRAniQAJ0Xp6L4Dh32pMeWnpt5C8+lbBuELQCdH1aV
+heczndJHLLRNAg3S6FTpDw8=
+=coew
+-----END PGP SIGNATURE-----
+
+--==_Exmh_-195849857P--
+
+
+
+_______________________________________________
+Exmh-workers mailing list
+Exmh-workers@redhat.com
+https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+",.com,True,0,,False
+Re: New Sequences Window,"--==_Exmh_31119591P
+Content-Type: text/plain; charset=us-ascii
+
+On Wed, 21 Aug 2002 15:01:07 +0700, Robert Elz said:
+
+> Hmm - I've been using MH for a long time (since well before there were
+> sequences) and I don't think I've ever seen a ""pseq"" ...
+
+My bad - I had 'Previous-Sequence: pseq' in my .mh_profile from long ago and
+far away.
+
+-- 
+				Valdis Kletnieks
+				Computer Systems Senior Engineer
+				Virginia Tech
+
+
+--==_Exmh_31119591P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.0.7 (GNU/Linux)
+Comment: Exmh version 2.5 07/13/2001
+
+iD8DBQE9Y7AzcC3lWbTT17ARAp/tAJ4gYhfoiqyVwy6CpYSsxdmq5//o5gCfWOy/
+7yBnBY65rPE7W6UWhH5aKc4=
+=RD0t
+-----END PGP SIGNATURE-----
+
+--==_Exmh_31119591P--
+
+
+
+_______________________________________________
+Exmh-workers mailing list
+Exmh-workers@redhat.com
+https://listman.redhat.com/mailman/listinfo/exmh-workers
+
+",.edu,True,0,,False
+The ISO17799 Newsletter - Issue 4,"______________________________________________________
+
+THE ISO17799 NEWSLETTER - EDITION 4
+______________________________________________________
+
+Welcome to the fourth edition of the ISO17799 newsletter, designed to
+keep you abreast of news and developments with respect to ISO17799 and
+information security. 
+
+The information contained in this newsletter is absolutely free to our
+subscribers and provides guidance on various practical issues, plus
+commentary on recent Information Security incidents. 
+
+Guidance and information included in this issue:
+
+1)  The ISO17799 Toolkit Uncovered 
+2)  Social Engineering - Are you Susceptible?
+3)  ISO17799: A World Wide Phenomena
+4)  Stranger Danger
+5)  ISO17700: More Frequently Asked Questions
+6)  Credit Card Transactions - Minimize the Risks
+7)  BSI Certifications - Congratulations
+8)  ISO17799 Section 11 - BCP Review
+9)  It Couldn't Happen Here.... Could It?
+10)  Subscription Information
+
+
+
+THE ISO17799 TOOLKIT UNCOVERED
+==============================
+
+The ISO17799 standard can be acquired either stand alone or as part of
+an introductory pack appropriately called 'The ISO17799 Toolkit'. But
+why was it packaged thus, and what is included in the pack?  
+
+The purpose of the toolkit is to help organizations get off to a flying
+start with respect to ISO17799... not only to understand the standard
+itself but to begin to address many of the standard's requirements more
+quickly.
+
+The contents can be broken down into two groups: those that help the
+organization to understand where ISO17799 fits and what is involved in
+embracing it, and those that help an organization to take the first
+critical steps to compliance.
+
+In the former group are the 'RoadMap to Certification' (which broadly
+describes the process of gaining certification), the 'XL Management
+Presentation' (which explains the history, background and current status
+of the standard) and of course the ISO17799 standard itself (both
+parts).
+
+In the latter group are some key items to aid compliance. These include
+a comprehensive set of ISO17799 compliant security policies to address
+section 3 (Security Policy) and business continuity audit checklists to
+help address section 11 (Business Continuity Management).
+
+It doesn't end there, however. For the audit section there is a detailed
+set of audit questionnaires to address various issues and platforms. For
+newcomers to information security there is even a substantial glossary
+of terms.  
+
+Clearly, creating such a toolkit was a significant undertaking. However,
+in terms of helping organizations exploring the initial stages of
+ISO17799, it can be invaluable. 
+
+More information on the ISO17799 Toolkit and how to purchase can be
+found at: http://www.iso17799-made-easy.com
+
+The standard itself can alternatively be procured from:  
+http://www.iso17799.net 
+
+
+
+SOCIAL ENGINEERING - ARE YOU SUSCEPTIBLE?
+=========================================
+
+The term 'social engineering' can conjure up a variety of ideas, usually
+based around the concept of genetic tampering. However, when applied to
+IT security, it has its own implications and its own vocabulary.
+
+Following interviews with known computer criminals, a list of approaches
+has been produced. These are designed to gather information without the
+target even realizing that they have parted with it.
+
+The attempts are often made on an opportune bases, with common locations
+for this sort of activity being planes, trains and pubs. The telephone
+is probably the major source of pre-meditated acts.  
+
+The following are some of the major techniques employed:
+
+BAITING
+This essentially involves asking a variety of questions, including some
+leading questions designed to 'catch' the right answers. Often, items of
+conversation are introduced based upon replies received. The fiction is
+legitimized with small amounts of fact in the right places.
+
+PULLING RANK
+This amounts ot the perpetrator assuming a more senior position in the
+company than the victim and is usually enacted on the telephone. It does
+not necessitate direct impersonation... only the POSITION needs to be
+assumed. 
+
+EXHAUSTING
+This involves asking a constant stream of similar questions to wear down
+the target.
+
+SURF BOARDING
+Basically this is looking over someone's shoulder at something
+confidential. This could be directly, through a window, through a
+doorway, etc.
+
+SURVEYS
+The information given freely in surveys can often be extremely useful to
+a criminal. The surveys can initially be for entirely legitimate
+purposes, or can be completely bogus from the start. In either case
+sensitive information can often be obtained and unwittingly disclosed.
+
+
+There are of course many other techniques. However, disclosure can be
+prevented via the use of a series of common sense rules and policies. 
+
+Before releasing any information it is essential to at least establish:
+
+a) the sensitivity of the information
+b) your authority to exchange or release the information
+c) the real identity of the third party (proper authentication)
+d) the purpose of the exchange
+
+The act of exchange should also be recorded for audit purposes.
+
+
+
+ISO17799 - A WORLD WIDE PHENOMINA =================================
+
+Disney would have said ""it's a small world after all"", but the global
+take on of ISO17799 proves that organizations the planet over are
+embracing it with enthusiasm.
+
+To illustrate the global nature of the standard, we recently created a
+table from the last 500 purchases of the standard from the ISO17799
+Electronic Shop (www.iso17799.net). The figures below do come with a
+serious health warning though - the Electronic Shop is a credit card
+purchase system. Some cultures are not as comfortable or familiar as
+others with credit card purchase and will therefore have their purchase
+position significantly understated. An example is India, which acquires
+substantial numbers of the standard, only two of which show in the last
+500 from the download location.
+
+That aside, the table makes interesting reading:
+
+Argentina 1 
+Australia 6 
+Austria 5  
+Barbados 2 
+Belgium 5 
+Bermuda 1 
+Bosnia and Herzegovina 1 
+Brasil 2 
+Brazil 4 
+Canada 52 
+Cayman Islands 1 
+Chile 3 
+China 3 
+Colombia 5 
+Costa Rica 1 
+Croatia 1
+Cyprus 1 
+Denmark 5 
+Deutschland 5  
+Egypt 4 
+England 26 
+France 3 
+Germany 20 
+Greece 3 
+Guatemala 1 
+Hong Kong 7 
+Hungary 1 
+India 2 
+Indonesia 2 
+Ireland 11 
+Isle of Man 1 
+Israel 1 
+Italia 1 
+Italy 20 
+Japan 3 
+Malaysia 5 
+Mexico 9
+Netherlands 3 
+New Zealand 2 
+Northern Ireland 1 
+Norway 10 
+NZ 1 
+Panama 1 
+Portugal 1
+Russia 3 
+Sacramento 1 
+Scotland 3 
+Singapore 9
+Slovak Republic 1
+Slovenia 1
+South Africa 4
+Spain 9 
+Sultanate of Oman 1 
+Sweden 3 
+Switzerland 14 
+Taiwan 3 
+Thailand 2 
+The Netherlands 8
+Tunisia 1 
+Turkey 1 
+U.A.E 1 
+UK 51 
+United Arab Emirates 2 
+United Kingdom 24 
+United States 13 
+United States of America 25 
+USA 176 
+Venezuela 2 
+
+
+STRANGER DANGER
+===============
+
+As you read this article, look around at your working environment. The
+items/information you have to hand may not seem very sensitive because
+you deal with them every day... but now look again.
+
+If you were alone and not a member of staff, how would you view them?
+What would you find if you looked around? Picture yourself as a visitor
+passing through. What can you hear in terms of conversation? What can
+you see?
+
+The chances are that you can hear and see quite a lot that you would not
+want to be openly disclosed to the outside world. If this is the case,
+the security of your information is at risk potentially from every
+visitor, stranger, subcontractor, etc. 
+
+This article is not written with the intention of discrediting visitors,
+but nonetheless, it is important to be fully AWARE of what CAN happen if
+due caution is not exercised.
+
+The following guidelines may help in ensuring that the risks are
+minimized:
+
+* Your reception/visitor area should issue distinctive badges and ensure
+that visitors wear them
+
+* Consider using different colored badges for each day of the week.
+
+* Challenge those who are not displaying any identity badges
+
+* If your location issues identity badges - make sure YOU wear yours
+
+* Do not be afraid to ask someone who they are visiting and what they
+are doing
+
+* Do not be lazy... escort visitors from reception (if applicable)...
+don't let them make their way to you
+
+* Do not hold doors open for people not displaying their ID
+
+* Do not leave visitors alone   
+
+
+
+ISO17799 - MORE FREQUENTLY ASKED QUESTIONS
+==========================================
+
+1) How many controls are there in the standard?
+Part 1 is organized into 10 sections. There are 127 main controls and
+over 500 detailed controls in total.
+
+2) What is part 2?
+Part 2 basically explains how to apply the standard itself, and how to
+build and operate an information security management system.
+
+3) How old is it?
+The standard stems from an original publication in 1993, from the DTI in
+the UK. It became BS7799 in 1995 and of course ISO17799 in 2000.
+
+4) What is accreditation?
+An accreditation body can authorize others to ""certify"" third parties
+under the standard (p2). A number of accreditation bodies exist in
+different countries.
+
+5) Is certification for life?
+No. It is normally for three year periods.
+
+6) ISO17799 is used throughout the world, but was it internationally
+created? Yes indeed. The latest versions included input from
+representatives from many nations, including Australia, Brazil, Germany,
+Norway, UK and USA, amongst others.
+
+7) Is it linked to a specific national legal system?
+No. It is generic in terms of legislation.
+
+
+
+CREDIT CARD TRANSACTIONS: MINIMIZE THE RISKS
+============================================
+
+The use of credit and debit cards to purchase goods and services has
+become an everyday convenience that we take for granted, but there are
+associated information security risks which we should pause to consider,
+especially when making payments over the Internet.  
+
+Web sites are becoming an increasingly popular means of purchasing goods
+and services, but they have also become popular targets for cyber
+criminals, who often use stolen credit card numbers to purchase goods,
+which can then be easily exchanged for cash.  There are also relatively
+simple technologies now readily available which could be used by hackers
+to surreptitiously steal vast amounts of money, a few pounds at a time,
+from millions of people. A survey by the IT research company Gartner
+(http://www.gartner.com) predicted that Internet crime involving the
+""mass victimization"" of consumers could take place by the end of this
+year.  
+
+We recommend the following best practice guidelines to minimize the
+risks involved in credit card transactions:
+
+* Ensure that credit cards used to purchase goods or services on the
+Internet have a low credit limit, or if debit cards are used, that they
+have limited funds and are only topped up to cover specific Internet
+purchases.
+
+* All expenses incurred through Internet transactions should be
+carefully audited on a regular basis for any anomalies.
+
+* Only enter credit card details on a Web site if you are confident as
+to its authenticity and that the connection is secure - the prefix https
+(as opposed to the usual http) in the Web Site address indicates a
+secure connection.
+
+* If the security of a Web site is in doubt, any confidential
+information posted to it may be exposed to malicious intent.  Be
+extremely cautious when posting confidential details on any site where
+the Internet Service Provider hosting the site is not verified. Note
+that we have pre-checked all sites referenced in this newsletter for
+security!
+
+* If ordering by telephone using a credit card, ensure that you are
+talking to the correct person.  If you are unsure whether the
+organization you are dealing with will handle your details sensitively,
+pay by some other means.
+
+* Lost or stolen credit card details may be used for Internet
+transactions.  Inform the card issuer and relevant person within your
+organization immediately if a company credit card is lost or stolen.
+
+
+
+BSI - CERTIFICATIONS
+====================
+
+Congratulations to all the following who have been certified by BSI with
+respect to BS7799 Part2 for at least one system in at least one
+location:
+
+7 Global, Accordis Acetate Chemicals Limited, Alenia Marconi Systems
+Ltd, American Society of Quality, AMOUN Pharmaceutical Co (Egypt),
+Attenda Limited, Business Coach IT Management, CADWEB Limited, Camelot
+Group Plc, Capita Business Services, Dai-Ichi Kangyo Bank Limited, DBI
+Consulting, Digex, DNP Facility Services Co Limited (Japan), Ericsson
+ESPA A S.A., Glaxo Wellcome Manufacturing (Singapore),GlaxoSmithKline,
+Hanvit Bank Korea, Hyundai Information Technology, Icfox International,
+Intergalis, Logic Systems Management, Macquarie Corporate
+Telecommunications Pty Limited Australia, Netstore Plc, NTT Data Corp,
+Paramount Computer Systems (UAE), PCCW Business eSolutions Hong Kong,
+S-Cube Inc, Serious Fraud Office, Siemens Business Services Trust Center
+(Munich), Stiki EHF (Iceland), Sony Bank Inc (Japan), Co-operative Bank
+Plc, The University of Texas, Total Network Solutions Limited, Unisys
+Limited, Vodafone Telecommerce GMBH, Volex Group Plc
+
+
+We intend to produce a more complete list in a future newsletter. We
+will also include certificates issued by the growing number of other
+certification bodies across the world.
+
+
+
+ISO17799 SECTION 11: BCP REVIEW 
+===============================
+
+Business continuity planning is covered by section 11 of the standard, a
+core requirement of which is the creation and maintenance of a business
+continuity plan.
+
+Creating such a plan from scratch is a difficult undertaking of course.
+This is one reason why software products were produced. Unfortunately
+these often become problematic in themselves... difficult to learn,
+expensive, etc.
+
+Recent times have therefore seen a move to simplification, with
+organizations keen to avoid adding complexity to an already complex
+task. At the vanguard of this change was a product developed entirely in
+MS-Word: The BCP Generator.
+
+This was designed from top down to simplify business continuity
+planning. It comprises two components: a plan template and an
+interactive guide (the latter using Word macros to jump to and fro into
+the correct part of the template). It's impact upon the business
+continuity scene has been substantial, with organizations from the very
+largest to the smallest embracing the tool and its concepts. It is in
+active use in over 40 countries.
+  
+With this change of emphasis in the business continuity planning market,
+there is now NO excuse for not creating a full recovery plan. The old
+lines of ""too expensive"" and ""too difficult"" are now less hollow than
+they ever were. Although section 11 is very clear with respect to the
+need of a comprehensive plan, it is surely also a matter of due
+diligence to have one, and equally, irresponsibility not to have one.
+
+For information on the BCP Generator see: 
+http://www.disaster-recovery-plan.com
+
+For information on business continuity generally, see:
+http://www.yourwindow.to/business-continuity/ 
+
+
+
+IT COULDN'T HAPPEN HERE....COULD IT?
+====================================
+
+Every issue of The ISO17799 Newsletter features at least one TRUE story
+of an information security breach and its consequences. Again, in this
+issue, we focus upon 'low tech' but high impact incidents:
+
+
+1) On 25th October a contract programmer who had once worked for a large
+US based bank walked into the 'inner sanctum' of the main building (the
+security guards remembered him as someone permitted to do so). In the
+dealing room he claimed to be conducting a quality audit and
+interrogated a junior employee and watched a program run - noting down
+security codes as they were entered. He then left and hung around
+outside until just after normal trading time.
+
+He then rang the Bank from a public phone box and initiated an
+electronic funds transfer using the codes... $10.2m to a Swiss account. 
+
+The plan nearly failed when he found that he had noted one of the codes
+incorrectly, but he rang the Bank department back and incredibly managed
+to trick a different employee into revealing the correct digit.
+
+He flew to Switzerland and later returned with the money. He was caught
+simply because he couldn't resist boasting about his great feat. When
+the police contacted the bank they were still totally unaware of their
+loss!
+
+
+2) Remote, or dial-in access can be a real Achilles heel if not properly
+controlled. In a recent case a young hacker gained access to a major
+company's system by using the default password of a system engineer
+(which had never been changed!). 
+
+This gave him considerable scope and powers of access. To cover for
+himself, however, he semi-disabled the machine log, changed a number of
+user passwords, created several fictitious privileged users and tampered
+with the dial back system.
+
+Getting more ambitious he established a communication link with another
+computer and ended up making it crash. All this took place over a couple
+of evenings.
+
+To recover from the havoc the installation had to close down its prime
+computer and restore from the previous weeks back-up, at considerable
+cost.
+
+
+3) Over a period of nine months, the number of computer malfunctions
+within a large company had risen from an average of two per year to
+critical levels. The impact was such that the business fell behind with
+its invoicing systems and had to buy processing and backup from third
+parties. As it could not deliver some of its services reliably, it
+started to lose the confidence of its customers. The situation began to
+spiral. 
+
+Eventually, the company suspected foul play may be involved and called
+the police. Secret surveillance equipment was installed to monitor
+staff. One was filmed lightly scratching circuit boards in disk units
+and also attaching paper clips to them. Both these actions led to a
+short circuit.
+
+When confronted, he confessed everything. His motive was to earn
+overtime, which was required to process the overlap work which was
+delayed by the malfunction. He netted 689 UKP over the 9 months. The
+company lost at least 500,000 UKP.   
+
+
+
+CONTRIBUTIONS 
+=============
+Have you got something to say on the topic of ISO17799... a fresh
+insight or some information which might benefit others? If so, please
+feel free to contribute your submission to us. 
+
+
+
+ISO17799 NEWSLETTER REMINDER
+============================
+
+We hope that you have found this newsletter to be informative, and
+hopefully useful in helping to address the ISO17799 issue. Future
+editions will pursue these ends further (and will include interviews,
+case studies and more). 
+
+Subscription to the ISO17799 Newsletter is free. Please do feel free to
+pass this copy on to friends and colleagues. If you do not wish to
+receive further copies, please email us at the address below with a
+title of Un-subscribe. 
+
+If your friends or colleagues wish to receive the newsletter directly,
+they should simply send a blank email to: iso17799@securityrisk.co.uk 
+
+
+
+Finally, BinaryNine Ltd accept no liability or responsibility for errors
+or omissions in this newsletter. This also applies to any loss or damage
+caused, arising directly or indirectly, by the use of or reliance on the
+information contained within.  Copyright 2002 
+
+
+
+
+
+",.co.uk,True,0,,False
