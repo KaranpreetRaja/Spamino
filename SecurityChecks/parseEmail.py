@@ -47,5 +47,5 @@ def call(rootdir, bSpam):
                 mail = parseEmail(content)
                 writer.writerow(toTuple(mail, bSpam))
 
-call("dataset/ham/", True)
+call("dataset/ham/", False)
 call("dataset/spam/", True)
