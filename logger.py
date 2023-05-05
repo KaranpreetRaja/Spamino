@@ -11,7 +11,3 @@ def logPass(checkNum):
 def logError(checkNum, message):
     with open("full_log.txt", "a") as f:
         f.write(f"Check #{checkNum} Error: {message}\n")
-
-logPass(1)
-logFail(2, "This is a test")
-logError(3, "This is a test")
