@@ -48,8 +48,5 @@ def call(rootdir, bSpam):
                 mail = parseEmail(content)
                 writer.writerow(toTuple(mail, bSpam))
 
-# call("dataset/ham/", True)
+call("dataset/ham/", True)
 call("dataset/spam/", True)
-
-# f = open('test.txt', 'r').read()
-# print(re.sub('<(.|\n)*?>', '', f))
