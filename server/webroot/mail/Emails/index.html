@@ -4,21 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Inbox</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Email Inbox</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>From</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="inbox">
-        </tbody>
-    </table>
-    <div id="fileContent" class="content"></div>
+<body class="bg-zinc-900">
+    <h1 class="text-7xl text-white m-10">Email Inbox</h1>
+
+    <div class="m-10" id="mailList">
+    </div>
+
+    <div
+      id="popup"
+      class="absolute bg-zinc-700 text-white p-5 w-9/12 left-0 right-0 ml-auto mr-auto top-0 mt-10 flex rounded-sm drop-shadow-2xl hidden"
+    >
+      <div class="flex flex-col w-full h-full" >
+        <p class="text-2xl " id="header">Reasons this mail got blocked:</p>
+        <div id="fileContent" class="content border-0 h-full w-full"></div>
+      </div>
+
+      <button class="h-6 w-6 mr-0 ml-auto" onclick="closePopup()">
+        <svg
+          class="fill-white h-full w-full"
+          fill="#000000"
+          height="800px"
+          width="800px"
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 512 512"
+          xml:space="preserve"
+        >
+          <g>
+            <g>
+              <polygon
+                points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 
+			512,452.922 315.076,256 		"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+
     <script src="script.js"></script>
-</body>
+  </body>
+
 </html>

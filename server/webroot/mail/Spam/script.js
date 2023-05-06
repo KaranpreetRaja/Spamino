@@ -23,21 +23,13 @@ function displayInbox() {
         .then(files => {
             files.forEach(file => {
                 const { email, date } = parseFileName(file);
-                const row = document.createElement("tr");
 
-                const emailCell = document.createElement("td");
-                emailCell.textContent = email;
-                row.appendChild(emailCell);
-
-                const dateCell = document.createElement("td");
-                dateCell.textContent = date;
-                row.appendChild(dateCell);
-
-                row.addEventListener('click', () => {
-                    displayFileContent(file);
-                });
-
-                inboxElement.appendChild(row);
+                mailList = document.getElementById('mailList');
+                mailList.innerHTML +=   `<div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4 hover:bg-zinc-800 ease-in-out duration-150">` +
+                                        `<button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="openThreat('${file}'); event.stopPropagation();">See threat reason</button>` +
+                                        `<p class="cursor-pointer text-xl w-3/4 h-full" onclick="displayFileContent('${file}')">${email}</p>` +
+                                        `<p class="ml-auto mr-0 text-neutral-400">${date}</p>` +
+                                        `</div>`;
             });
         });
 }
@@ -46,17 +38,57 @@ function displayFileContent(filename) {
   fetch(`http://192.168.122.143:3001/api/files/${filename}`)
     .then(response => response.text())
     .then(content => {
-      const contentElement = document.getElementById('fileContent');
-      contentElement.innerHTML = content;
+        const { email, date } = parseFileName(filename);
 
-      const lines = contentElement.innerHTML.split('\n');
-      lines.splice(0, 16);
-      contentElement.innerHTML = lines.join('\n');
-
-      const iframe = contentElement.querySelector('iframe');
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
+        openPopup(content, email)
     });
+}
+
+function openThreat(filename) {
+    filename = filename.replace(/mail$/, 'reason');
+
+    fetch(`http://192.168.122.143:3002/api/files/${filename}`)
+    .then(response => response.text())
+    .then(content => {
+        openPopupReason(content, "Reason why this mail got blocked:")
+    });
+}
+
+function closePopup(){
+    popup = document.getElementById('popup');
+    popup.classList.add('hidden')
+}
+
+function openPopup(content, header){
+    popup = document.getElementById('popup');
+    popupHeader = document.getElementById('header');
+    popup.classList.remove('hidden')
+    popupHeader.innerHTML = header
+
+    const contentElement = document.getElementById('fileContent');
+    contentElement.innerHTML = content;
+
+    const lines = contentElement.innerHTML.split('\n');
+    lines.splice(0, 16);
+    contentElement.innerHTML = lines.join('\n');
+
+    const iframe = contentElement.querySelector('iframe');
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closePopup();
+    }
+});
+
+function openPopupReason(content, header) {
+    const popup = document.getElementById('popup');
+    const popupHeader = document.getElementById('header');
+    const contentElement = document.getElementById('fileContent');
+
+    popup.classList.remove('hidden');
+    popupHeader.innerHTML = header;
+    contentElement.textContent = content;
 }
 
 displayInbox();
