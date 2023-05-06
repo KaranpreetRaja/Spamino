@@ -8,31 +8,24 @@ import SecurityChecks.getLinks
 import SecurityChecks.googleBannedChecker
 import SecurityChecks
 import logger
+import shutil
 
-# make an object
 class Checker:
 
     def __init__(self):
         path = "/emails/"
         self.vectorizer, self.model = SecurityChecks.CheckLinkContent.InitializeVectorizerAndModel()
 
-        # constantly running isSpam function
         while True:
-            # if any files in path
             if os.listdir(path):
                 print("checking new file")
-                # run isSpam function with first file in path and pass in file content as parameter
-                # get content of first file
                 file = open(path + os.listdir(path)[0], "r")
                 cur, reason = self.isSpam(file.read())
                 if cur:
                     logger.logSpamReason(reason)
-                    # move copy file to "/spams/"
-                    os.rename(path + os.listdir(path)[0], "/spams/" + os.listdir(path)[0])
+                    shutil.move(path + os.listdir(path)[0], "/spams/" + os.listdir(path)[0])
                 else:
-                    # move copy file to "/mails/"
-                    os.rename(path + os.listdir(path)[0], "/mails/" + os.listdir(path)[0])
-                
+                    shutil.move(path + os.listdir(path)[0], "/mails/" + os.listdir(path)[0])
 
     def isSpam(self, email):
 
