@@ -17,19 +17,16 @@ def get_content(link):
         response = requests.get(link, timeout=1)
         soupContent = BeautifulSoup(response.content, 'html.parser')
         return ' '.join([text.get_text() for text in soupContent.find_all(['h1', 'h2', 'h3', 'p'])])
-    
+
     except Timeout:
         print("Request timed out!")
         return None
-    
+
     except:
         return None
 
-
 tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 max_length = tokenizer.model_max_length
-
-
 
 # Tokenizes the text using a pretrained BERT tokenizer
 def tokenize_text(text):
@@ -100,9 +97,6 @@ for trainIndices, testIndices in kfold.split(X):
     f1Scores.append(curF1)
     precisionScores.append(curPrecision)
     recallScores.append(curRecall)
-
-
-
 
 # Uses metrics module to print the average accuracy of the model
 print('Average accuracy: ', sum(accuracyScores) / len(accuracyScores))

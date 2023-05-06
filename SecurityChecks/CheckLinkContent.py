@@ -15,36 +15,31 @@ def InitializeVectorizerAndModel():
                 break
     model = objects[0]
 
-    data = pd.read_csv("/home/karan/Projects/Spamino/SecurityChecks/urlCont.csv")
+    data = pd.read_csv("/root/Spamino/SecurityChecks/urlCont.csv")
 
     X = data['content'].values
     vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7, max_features=1000)
     vectorizer.fit(data['content'].values)
     return vectorizer, model
- 
+
 def checkLinkContent(link, vectorizer, model):
     try:
         response = requests.get(link, timeout=2)
         if response.status_code == 200:
             soupContent = BeautifulSoup(response.content, 'html.parser')
-            
-        #print (soupContent)
+
             str =' '.join([text.get_text() for text in soupContent.find_all(['h1', 'h2', 'h3', 'p'])])
             if str =="":
                 return False
             X_test = vectorizer.transform([str])
-            prediction = model.predict(X_test)
-            return prediction
+            try:
+                prediction = model.predict(X_test)
+                return prediction
+            except ValueError:
+                print("ValueError: X has 1000 features, but LogisticRegression is expecting 3 features as input.")
+                return False
         else:
-            #print("not ok", response.status_code)
             return False
-    
+
     except Timeout:
-        #print("Request timed out!")
         return False
-    
-#    example how to use on a link 
-# vectorizer, model = InitializeVectorizerAndModel()
-#
-# spam = checkLinkContent("http://officeppe.com/", vectorizer, model)
-# print (spam)

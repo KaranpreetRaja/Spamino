@@ -6,12 +6,11 @@ import csv
 import re
 
 def toTuple(mail, bSpam):
-    
     body = mail.get_payload()
     body = re.sub('<(.|\n)*?>', '', body)
     subject = mail.get("Subject")
 
-    rp = False 
+    rp = False
     if mail.get("Return-Path") != None:
         rp = True
 
@@ -23,12 +22,11 @@ def toTuple(mail, bSpam):
     tld = ''
 
     if sender != None:
-        tldList = open('C:\\Users\\sandbox1\\Documents\\GitHub\\Spamino\\DataBases\\tld.txt', 'r').read().splitlines()
+        tldList = open('/root/Spamino/DataBases/tld.txt', 'r').read().splitlines()
         for line in tldList:
             x = re.search(f"@.*\.{line}(?:\n|\Z|\s|\.|>)+.*", sender.upper())
             if x != None:
                 tld += "."+line.lower()
-
 
     return(subject, body, tld, rp, bulkmail, mail.get('X-Keywords'), bSpam)
 

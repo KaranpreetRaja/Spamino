@@ -9,8 +9,6 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from transformers import DistilBertTokenizer, DistilBertModel
 
-
-
 class EmailDataset(Dataset):
     def __init__(self, data, tokenizer, max_len):
         self.data = data
@@ -21,7 +19,6 @@ class EmailDataset(Dataset):
         return len(self.data)
 
     def __getitem__(self, index):
-
 
         row = self.data.iloc[index]
         title = row["title"]
@@ -52,8 +49,6 @@ class EmailDataset(Dataset):
             "targets": torch.tensor(label, dtype=torch.float32),
         }
 
-
-
 class BinaryClassifier(nn.Module):
     def __init__(self, distilbert_model):
         super(BinaryClassifier, self).__init__()
@@ -68,7 +63,6 @@ class BinaryClassifier(nn.Module):
         logits = self.linear(pooled_output)
         return logits.squeeze(-1)
 
-
 # tokenizes the data and Truncate and add padding to the data
 def tokenize_and_truncate(string, tokenizer, max_len):
     tokens = tokenizer.tokenize(string)
@@ -77,17 +71,12 @@ def tokenize_and_truncate(string, tokenizer, max_len):
     tokens += ['[PAD]'] * (max_len - 2 - len(tokens))
     return " ".join(tokens)
 
-
-
 def load_data(tokenizer):
     # Read the CSV file
     data = pd.read_csv("exdata.csv")
 
-
     # get tokenizer max length
     max_len = tokenizer.max_model_input_sizes['distilbert-base-uncased']
-
-
 
     print("Number of rows: ", len(data))
 
@@ -127,7 +116,6 @@ def load_data(tokenizer):
 
     print(data.dtypes)
 
-
     target = "label"
 
     X = data[features].values
@@ -137,15 +125,12 @@ def load_data(tokenizer):
 
     return data
 
-
 # Chooses the device (CPU or GPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Print we are using GPU if available
 if torch.cuda.is_available():
     print("Using CUDA!")
-
-
 
 # Loads the data
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased', do_lower_case=True)
@@ -156,7 +141,7 @@ train_dataset = EmailDataset(train_data, tokenizer, max_len)
 test_dataset = EmailDataset(test_data, tokenizer, max_len)
 
 
-# Instantiate the BERT model 
+# Instantiate the BERT model
 distilbert_model = DistilBertModel.from_pretrained('distilbert-base-uncased')
 
 # Instantiate the classifier
@@ -212,8 +197,6 @@ for batch in test_loader:
         outputs = torch.sigmoid(outputs)
         y_pred.extend(torch.round(outputs).tolist())
         y_test.extend(targets.tolist())
-
-
 
 #prints f1 score, precision, recall, accuracy
 print("F1 score: {:.2f}".format(f1_score(y_test, y_pred)))

@@ -27,7 +27,6 @@ def checkSBL(ip):
         logError(2, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
         return True
 
-
 def checkPBL(ip):
     try:
         url = "https://www.spamhaus.org/pbl/query/" + ip
@@ -51,8 +50,6 @@ def checkPBL(ip):
         logError(2, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
         return True
 
-
-
 def filterIP(header):
     # regular expression patterns to match IP addresses and domains
     ipPattern = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
@@ -69,7 +66,3 @@ def filterIP(header):
         return True
     else:
         return False
-    
-
-
-

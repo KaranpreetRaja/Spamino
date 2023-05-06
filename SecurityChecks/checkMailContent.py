@@ -19,7 +19,6 @@ class BinaryClassifier(nn.Module):
         pooled_output = self.dropout(pooled_output)
         logits = self.linear(pooled_output)
         return logits.squeeze(-1)
-    
 
 def checkContent(mail):
     try:
@@ -54,6 +53,3 @@ def checkContent(mail):
     except:
         logError(4, "Decided not to work ")
         return 0
-
-
-

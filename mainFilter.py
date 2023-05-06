@@ -16,16 +16,19 @@ class Checker:
         path = "/emails/"
         self.vectorizer, self.model = SecurityChecks.CheckLinkContent.InitializeVectorizerAndModel()
 
-        while True:
-            if os.listdir(path):
-                print("checking new file")
-                file = open(path + os.listdir(path)[0], "r")
-                cur, reason = self.isSpam(file.read())
+        if os.listdir(path):
+            print("checking new file")
+            try:
+                with open(path + os.listdir(path)[0], "r", encoding="utf-8") as file:
+                    cur, reason = self.isSpam(file.read())
                 if cur:
                     logger.logSpamReason(reason)
                     shutil.move(path + os.listdir(path)[0], "/spams/" + os.listdir(path)[0])
                 else:
                     shutil.move(path + os.listdir(path)[0], "/mails/" + os.listdir(path)[0])
+            except UnicodeDecodeError:
+                print("Error decoding file, removing it")
+                os.remove(path + os.listdir(path)[0])
 
     def isSpam(self, email):
 
@@ -33,7 +36,7 @@ class Checker:
         # if it fails, return True
         if SecurityChecks.IPDomainChecker.filterIP(email):
             return True, "Email IP/Domain was blocklisted"
-        
+
         logger.logPass(2)
 
         # gets all the links from the email:
@@ -43,7 +46,7 @@ class Checker:
         for link in links:
             if SecurityChecks.CheckLinkContent.checkLinkContent(link, self.vectorizer, self.model):
                 return True, "Link was banned by Google"
-            
+
         logger.logPass(3)
 
 
@@ -51,7 +54,7 @@ class Checker:
         # if it fails, return True
         if SecurityChecks.checkMailContent.checkContent(email):
             return True, "Mail Content was detected as spam"
-        
+
         logger.logPass(4)
 
 
@@ -60,14 +63,9 @@ class Checker:
         for link in links:
             if SecurityChecks.CheckLinkContent.checkLinkContent(link, self.vectorizer, self.model):
                 return True, "Content of one of the links was detected as spam"
-        
+
         logger.logPass(5)
 
         return False, None
-        
+
 Checker()
-
-    
-
-
-
