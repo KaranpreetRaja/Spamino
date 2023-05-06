@@ -66,4 +66,19 @@ function displayFileContent(filename) {
     });
 }
 
+function openThreat(filename) {
+    filename = filename.replace(/mail$/, 'reason');
+    
+    fetch(`http://localhost:3002/api/files/${filename}`)
+    .then(response => response.text())
+    .then(content => {
+      const contentElement = document.getElementById('fileContent');
+      contentElement.innerHTML = content;
+
+      const iframe = contentElement.querySelector('iframe');
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+    });
+}
+
 displayInbox();
