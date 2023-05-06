@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spam Inbox</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Spam Inbox</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>From</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="inbox">
-        </tbody>
-    </table>
-    <div id="fileContent" class="content"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-zinc-900">
+    <h1 class="text-7xl text-white m-10">Spam Inbox</h1>
+
+    <div class="m-10">
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+        <div class="text-white font-bold bg-zinc-700 flex flex-column items-center p-2 rounded-sm mb-4">
+            <button class="rounded-sm bg-red-600 p-1 mr-5 text-white" onclick="">See threat reason </button>
+            <p class="text-xl" >example@aboba.com</p>
+            <p class="ml-auto mr-0 text-neutral-400">June Bune 2023</p>
+        </div>
+    </div>
+
+    <div class="absolute bg-zinc-700 text-white p-5 w-9/12 left-0 right-0 ml-auto mr-auto top-0 mt-10 flex">
+        <p>View</p>
+        <img class='h-8 w-8 text-white mr-0 ml-auto' src="../cross-close-svgrepo-com.svg">
+        
+    </div>
+
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="inbox">
+        
+      </tbody>
+    </table> -->
+    <!-- <div id="fileContent" class="content"></div> -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
