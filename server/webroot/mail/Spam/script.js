@@ -16,7 +16,7 @@ function parseFileName(fileName) {
 function displayInbox() {
     const inboxElement = document.getElementById("inbox");
 
-    fetch('http://192.168.122.143:3001/api/files')
+    fetch('http://localhost:3001/api/files')
         .then(response => {
             return response.json();
         })
@@ -27,6 +27,13 @@ function displayInbox() {
 
                 const emailCell = document.createElement("td");
                 emailCell.textContent = email;
+
+                const emailThreat = document.createElement("button");
+                emailThreat.innerHTML = 'See threat reason';
+                emailThreat.onclick = () => {openThreat(file)};
+                emailThreat.classList.add('threatButton');
+                emailCell.appendChild(emailThreat);
+
                 row.appendChild(emailCell);
 
                 const dateCell = document.createElement("td");
@@ -43,7 +50,7 @@ function displayInbox() {
 }
 
 function displayFileContent(filename) {
-  fetch(`http://192.168.122.143:3001/api/files/${filename}`)
+  fetch(`http://localhost:3001/api/files/${filename}`)
     .then(response => response.text())
     .then(content => {
       const contentElement = document.getElementById('fileContent');
@@ -52,6 +59,21 @@ function displayFileContent(filename) {
       const lines = contentElement.innerHTML.split('\n');
       lines.splice(0, 16);
       contentElement.innerHTML = lines.join('\n');
+
+      const iframe = contentElement.querySelector('iframe');
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+    });
+}
+
+function openThreat(filename) {
+    filename = filename.replace(/mail$/, 'reason');
+    
+    fetch(`http://localhost:3002/api/files/${filename}`)
+    .then(response => response.text())
+    .then(content => {
+      const contentElement = document.getElementById('fileContent');
+      contentElement.innerHTML = content;
 
       const iframe = contentElement.querySelector('iframe');
       iframe.style.width = '100%';
