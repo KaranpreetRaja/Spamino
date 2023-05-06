@@ -16,7 +16,7 @@ function parseFileName(fileName) {
 function displayInbox() {
     const inboxElement = document.getElementById("inbox");
 
-    fetch('http://localhost:3000/api/files')
+    fetch('http://192.168.122.143:3000/api/files')
         .then(response => {
             return response.json();
         })
@@ -34,7 +34,7 @@ function displayInbox() {
 }
 
 function displayFileContent(filename) {
-    fetch(`http://localhost:3000/api/files/${filename}`)
+    fetch(`http://192.168.122.143:3000/api/files/${filename}`)
       .then(response => response.text())
       .then(content => {
         const { email, date } = parseFileName(filename);
@@ -64,5 +64,10 @@ function openPopup(content, header){
     const iframe = contentElement.querySelector('iframe');
 }
 
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closePopup();
+    }
+});
 
 displayInbox();

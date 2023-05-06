@@ -16,7 +16,7 @@ function parseFileName(fileName) {
 function displayInbox() {
     const inboxElement = document.getElementById("inbox");
 
-    fetch('http://localhost:3001/api/files')
+    fetch('http://192.168.122.143:3001/api/files')
         .then(response => {
             return response.json();
         })
@@ -35,7 +35,7 @@ function displayInbox() {
 }
 
 function displayFileContent(filename) {
-  fetch(`http://localhost:3001/api/files/${filename}`)
+  fetch(`http://192.168.122.143:3001/api/files/${filename}`)
     .then(response => response.text())
     .then(content => {
         const { email, date } = parseFileName(filename);
@@ -47,11 +47,10 @@ function displayFileContent(filename) {
 function openThreat(filename) {
     filename = filename.replace(/mail$/, 'reason');
 
-    fetch(`http://localhost:3002/api/files/${filename}`)
+    fetch(`http://192.168.122.143:3002/api/files/${filename}`)
     .then(response => response.text())
     .then(content => {
-
-        openPopup(content, "Reason why this mail got blocked:")
+        openPopupReason(content, "Reason why this mail got blocked:")
     });
 }
 
@@ -74,6 +73,22 @@ function openPopup(content, header){
     contentElement.innerHTML = lines.join('\n');
 
     const iframe = contentElement.querySelector('iframe');
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closePopup();
+    }
+});
+
+function openPopupReason(content, header) {
+    const popup = document.getElementById('popup');
+    const popupHeader = document.getElementById('header');
+    const contentElement = document.getElementById('fileContent');
+
+    popup.classList.remove('hidden');
+    popupHeader.innerHTML = header;
+    contentElement.textContent = content;
 }
 
 displayInbox();

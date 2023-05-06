@@ -48,5 +48,5 @@ else
    modifiedfrom=$(echo "$from" | sed -e 's/@/-/g' -e 's/\$/-/g' -e 's/#/-/g' -e 's/%/-/g' -e 's/\^/-/g' -e 's/!/-/g' -e 's/\*/-/g' -e 's/&/-/g' -e 's/(/-/g' -e 's/)/-/g' -e 's/_/-/g' -e 's/=/-/g' -e 's/+/-/g' -e 's/\./-/g' -e 's/,/-/g' -e 's/\//-/g' -e 's/;/-/g' -e 's/:/-/g' -e "s/'/-/g" -e 's/"/-/g' -e 's/\[/-/g' -e 's/\]/-/g' -e 's/{/-/g' -e 's/}/-/g' -e 's/|/-/g' -e 's/\\\\/-/g')
 
    mv /mails/$currentmail /var/www/html/mail/Spams/$outputdate-$modifiedfrom.mail
-   mv /spams/$spamcheck /var/www/html/mail/AntiSpam/$outputdate-$modifiedfrom.reason
+   mv /spams/$spamcheck /var/www/html/mail/Spams/$outputdate-$modifiedfrom.reason
 fi
