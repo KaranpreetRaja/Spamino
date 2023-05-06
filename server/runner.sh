@@ -15,7 +15,7 @@ if [ -z $spamname ]; then
    emailuser="<spamino@testmail.local>"
    adminuser="<admin@testmail.local>"
 
-   sed -i 's/$to/$aemailuser/g' /mails/$currentmail
+   sed -i 's/$to/$emailuser/g' /mails/$currentmail
    sed -E -i "s/([A-Za-z]{3}, [0-9]{2} [A-Za-z]{3} [0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2})/${date}/g" /mails/$currentmail
    sed -E -i "s/([A-Za-z]{3} [A-Za-z]{3} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4})/${date2}/g" /mails/$currentmail
    sed -E -i "s/<([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})>/${emailuser}/g" /mails/$currentmail
