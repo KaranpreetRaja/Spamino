@@ -66,8 +66,7 @@ class Checker:
 
         return False, None
         
-        
-    
+Checker()
 
     
 
