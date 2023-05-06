@@ -14,6 +14,8 @@ class Checker:
 
     def __init__(self):
         path = "/emails/"
+        spam_path = os.path.abspath("/spams/")
+        mail_path = os.path.abspath("/mails/")
         self.vectorizer, self.model = SecurityChecks.CheckLinkContent.InitializeVectorizerAndModel()
 
         if os.listdir(path):
@@ -23,9 +25,9 @@ class Checker:
                     cur, reason = self.isSpam(file.read())
                 if cur:
                     logger.logSpamReason(reason)
-                    shutil.move(path + os.listdir(path)[0], "/spams/" + os.listdir(path)[0])
+                    shutil.move(path + os.listdir(path)[0], os.path.join(spam_path, os.listdir(path)[0]))
                 else:
-                    shutil.move(path + os.listdir(path)[0], "/mails/" + os.listdir(path)[0])
+                    shutil.move(path + os.listdir(path)[0], os.path.join(mail_path, os.listdir(path)[0]))
             except UnicodeDecodeError:
                 print("Error decoding file, removing it")
                 os.remove(path + os.listdir(path)[0])

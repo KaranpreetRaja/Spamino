@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def InitializeVectorizerAndModel():
     objects = []
-    with (open("linkContentClassifier.sav", "rb")) as openfile:
+    with (open("/root/Spamino/linkContentClassifier.sav", "rb")) as openfile:
         while True:
             try:
                 objects.append(pickle.load(openfile))
