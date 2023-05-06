@@ -4,6 +4,9 @@ import torch.optim as optim
 import numpy as np
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
+from sklearn.model_selection import KFold
+from transformers import BertTokenizer
 
 # Defines binary classifier using PyTorch
 class BinaryClassifier(nn.Module):
@@ -96,35 +99,64 @@ class DQNAgent():
         torch.save(self.model.state_dict(), name)
 
 
+# tokenizes the data and Truncate
+def tokenize_and_truncate(string, tokenizer, max_len):
+    tokens = tokenizer.tokenize(string)
+    tokens = tokens[:max_len-2]
+    return tokens
+
 
 def load_data():
     # Read the CSV file
-    data = pd.read_csv("dataset.csv")
+    data = pd.read_csv("exdata.csv")
+
+
+    # Set up BERT tokenizer
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+
+    # get tokenizer max length
+    max_len = tokenizer.max_model_input_sizes['bert-base-uncased']
+
+
+
+    print("Number of rows: ", len(data))
 
     # Preprocess the data
-    # 1. Title of the email
-    data["title_length"] = data["title"].str.len()
+    # 1. Title of the email (tokenize using BERT)
+    data["title"] = data["title"].fillna("")
+    # use tokenize_and_truncate function to tokenize and truncate the data
+    data["title"] = data["title"].apply(lambda x: tokenize_and_truncate(x, tokenizer, max_len))
 
-    # 2. Body/Text of the email
-    data["body_length"] = data["body"].str.len()
+
+    # 2. Body/Text of the email (tokenize using BERT)
+    data["body"] = data["body"].fillna("")
+    data["body"] = data["body"].apply(lambda x: tokenize_and_truncate(x, tokenizer, max_len))
 
     # 3. TLD
     data["tld"] = data["tld"].astype('category').cat.codes
 
-    # 4. If has Return Path (true or false)
-    data["has_return_path"] = data["return_path"].notna().astype(int)
+    # 4. If has Return Path (has value "True" or "False")
+    data["has_return_path"] = data["return_path"].notna().astype(np.float32)
+
+    # Print number of times has_return_path is 1
+    print(data["has_return_path"].value_counts())
 
     # 5. X-bulkmail (if has one then write the float, otherwise 0)
-    data["x_bulkmail"] = data["x_bulkmail"].fillna(0)
+    data["x_bulkmail"] = data["x_bulkmail"].fillna(0).astype(np.float32)
 
     # 6. X-keywords (give me a comma separated list of all x-keywords, if doesn't exist, then empty)
     data["x_keywords"] = data["x_keywords"].fillna("").str.split(",")
 
     # 7. label (Yes if spam, No if not-spam)
-    data["label"] = data["label"].map({"Yes": 1, "No": 0})
+    data["label"] = data["label"].map({"Yes": 1, "No": 0}).astype(np.float32)
 
     # Define the features and target
-    features = ["title_length", "body_length", "tld", "has_return_path", "x_bulkmail"]
+    features = ["title", "body", "tld", "has_return_path", "x_bulkmail"]
+
+    print(data.dtypes)
+
+
+
     target = "label"
 
     # Create X and y
@@ -133,7 +165,12 @@ def load_data():
 
     return X, y
 
+# Chooses the device (CPU or GPU)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# Print we are using GPU if available
+if torch.cuda.is_available():
+    print("Using CUDA!")
 
 # Loads the data
 X, y = load_data()
@@ -178,6 +215,19 @@ for episode in range(num_episodes):
     agent.decay_epsilon()
     if (episode+1) % 100 == 0:
         print("Episode {}/{}".format(episode+1, num_episodes))
+
+# Evaluates the binary classifier
+clf.eval()
+y_pred = clf(X_test)
+y_pred = y_pred.detach().numpy()
+y_pred = np.where(y_pred > 0.5, 1, 0)
+
+#prints f1 score, precision, recall, accuracy
+print("F1 score: {:.2f}".format(f1_score(y_test, y_pred)))
+print("Precision: {:.2f}".format(precision_score(y_test, y_pred)))
+print("Recall: {:.2f}".format(recall_score(y_test, y_pred)))
+print("Accuracy: {:.2f}".format(accuracy_score(y_test, y_pred)))
+
 
 # Saves trained models
 clf.save("binary_classifier.pt")
