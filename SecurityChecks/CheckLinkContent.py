@@ -15,7 +15,7 @@ def InitializeVectorizerAndModel():
                 break
     model = objects[0]
 
-    data = pd.read_csv("urlCont.csv")
+    data = pd.read_csv("/home/karan/Projects/Spamino/SecurityChecks/urlCont.csv")
 
     X = data['content'].values
     vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7, max_features=1000)

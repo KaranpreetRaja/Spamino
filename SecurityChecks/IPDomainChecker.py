@@ -70,9 +70,6 @@ def filterIP(header):
     else:
         return False
     
-def test():
-    print([filterIP("google.com"), filterIP("bardia.tech"), filterIP("facebook.com"), filterIP("youtube.com"), filterIP("reddit.com"), filterIP("twitter.com"), filterIP("instagram.com")])
 
-test()
 
 
