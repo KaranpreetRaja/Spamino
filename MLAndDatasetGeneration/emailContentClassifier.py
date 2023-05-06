@@ -7,7 +7,6 @@ import pandas as pd
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
-from transformers import AutoTokenizer
 from transformers import DistilBertTokenizer, DistilBertModel
 
 
