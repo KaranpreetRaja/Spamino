@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.static('.'));
 app.use(cors({
-  origin: ['http://192.168.122.143:3002', 'http://192.168.122.143']
+  origin: ['http://localhost:3002', 'http://localhost']
 }));
 
 app.get('/api/files', (req, res) => {

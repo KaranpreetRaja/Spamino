@@ -1,59 +1,1050 @@
 <!DOCTYPE html>
+<!-- saved from url=(0069)https://webix-hub.github.io/email-client-template/dist/es5/index.html -->
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Inbox</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-zinc-900">
-    <a href="#" onclick="window.history.back()" class="absolute top-5 left-5">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
-        <path d="M0 0h24v24H0z" fill="none"/>
-        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-      </svg>
-    </a>
-    <h1 class="text-7xl text-white m-10">Email Inbox</h1>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <div class="m-10" id="mailList">
-    </div>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Webix Email Client Template</title>
+    <!-- Webix Library -->
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="webix.css" />
+    <!-- Material Design icons -->
+    <link
+      rel="stylesheet"
+      href="materialdesignicons.min.css"
+      type="text/css"
+      charset="utf-8"
+    />
+    <link href="./app.css" rel="stylesheet" />
+    <style type="text/css" media="screen,print">
+      html,
+      body {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body class="webix_full_screen">
+    <script type="text/javascript" src="./vendors.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
     <div
-      id="popup"
-      class="absolute bg-zinc-700 text-white p-5 w-9/12 left-0 right-0 ml-auto mr-auto top-0 mt-10 flex rounded-sm drop-shadow-2xl hidden"
+      class="webix_view webix_window webix_popup webix_sidebar_popup webix_sidebar_popup_left webix_dark sidebarMenu"
+      role="dialog"
+      tabindex="0"
+      view_id="$popup1"
+      style="display: none; width: 206px; height: 46px"
     >
-      <div class="flex flex-col w-full h-full" >
-        <p class="text-2xl " id="header">Reasons this mail got blocked:</p>
-        <div id="fileContent" class="content border-0 h-full w-full"></div>
+      <div class="webix_win_content" style="padding: 0px">
+        <div class="webix_win_head" style="display: none"></div>
+        <div class="webix_win_body">
+          <div
+            class="webix_view webix_layout_line"
+            view_id="$layout5"
+            style="width: 206px; height: 46px"
+          >
+            <div
+              class="webix_view webix_sidebar_popup_title"
+              view_id="$template2"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: 0px;
+                width: 206px;
+                height: 46px;
+              "
+            >
+              <div class="webix_template"></div>
+            </div>
+            <div
+              class="webix_view webix_menu webix_sidebar_popup_list webix_sidebar_popup_left webix_dark sidebarMenu"
+              role="menubar"
+              view_id="$menu1"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 206px;
+                height: 1px;
+              "
+            >
+              <div class="webix_scroll_cont"></div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <button class="h-6 w-6 mr-0 ml-auto" onclick="closePopup()">
-        <svg
-          class="fill-white h-full w-full"
-          fill="#000000"
-          height="800px"
-          width="800px"
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          viewBox="0 0 512 512"
-          xml:space="preserve"
-        >
-          <g>
-            <g>
-              <polygon
-                points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 
-			512,452.922 315.076,256 		"
-              />
-            </g>
-          </g>
-        </svg>
-      </button>
     </div>
+    <div
+      class="webix_view webix_window webix_popup webix_sidebar_popup webix_sidebar_popup_left webix_dark"
+      role="dialog"
+      tabindex="0"
+      view_id="$popup2"
+      style="display: none; width: 206px; height: 46px"
+    >
+      <div class="webix_win_content" style="padding: 0px">
+        <div class="webix_win_head" style="display: none"></div>
+        <div class="webix_win_body">
+          <div
+            class="webix_view webix_layout_line"
+            view_id="$layout6"
+            style="width: 206px; height: 46px"
+          >
+            <div
+              class="webix_view webix_sidebar_popup_title"
+              view_id="$template3"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: 0px;
+                width: 206px;
+                height: 46px;
+              "
+            >
+              <div class="webix_template"></div>
+            </div>
+            <div
+              class="webix_view webix_menu webix_sidebar_popup_list webix_sidebar_popup_left webix_dark"
+              role="menubar"
+              view_id="$menu2"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 206px;
+                height: 1px;
+              "
+            >
+              <div class="webix_scroll_cont"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="webix_view webix_window webix_popup"
+      role="dialog"
+      tabindex="0"
+      view_id="$suggest1"
+      style="display: none; width: 300px; height: 108px"
+    >
+      <div class="webix_win_content" style="padding: 0px">
+        <div class="webix_win_head" style="display: none"></div>
+        <div class="webix_win_body">
+          <div
+            class="webix_view webix_list webix_custom_scroll"
+            role="listbox"
+            view_id="$suggest1_list"
+            style="overflow-y: scroll; width: 300px; height: 108px"
+          >
+            <div class="webix_scroll_cont">
+              <div
+                webix_l_id="1"
+                class="webix_list_item"
+                style="width: auto; height: 36px; overflow: hidden"
+                role="option"
+                tabindex="0"
+              >
+                Recent
+              </div>
+              <div
+                webix_l_id="2"
+                class="webix_list_item"
+                style="width: auto; height: 36px; overflow: hidden"
+                role="option"
+                tabindex="-1"
+              >
+                Work
+              </div>
+              <div
+                webix_l_id="3"
+                class="webix_list_item"
+                style="width: auto; height: 36px; overflow: hidden"
+                role="option"
+                tabindex="-1"
+              >
+                Friends
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="webix_view webix_layout_line"
+      view_id="$layout1"
+      style="width: 2512px; height: 1317px"
+    >
+      <div
+        class="webix_view webix_toolbar webix_dark webix_layout_toolbar"
+        role="toolbar"
+        view_id="$toolbar1"
+        style="
+          border-width: 0px 0px 1px;
+          white-space: nowrap;
+          margin-left: 0px;
+          margin-top: 0px;
+          width: 2512px;
+          height: 76px;
+        "
+      >
+        <div class="webix_scroll_cont">
+          <div
+            class="webix_view webix_control webix_el_label"
+            view_id="$label1"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              border-width: 0px;
+              margin-top: 8px;
+              margin-left: 20px;
+              width: 236px;
+              height: 60px;
+            "
+          >
+            <div
+              class="webix_el_box"
+              style="width: 236px; height: 60px; line-height: 54px"
+            >
+              EMAIL CLIENT
+            </div>
+          </div>
+          <div
+            class="webix_view webix_layout_line"
+            view_id="$layout2"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              margin-top: 8px;
+              margin-left: 12px;
+              width: 282px;
+              height: 60px;
+            "
+          >
+            <div
+              class="webix_view webix_spacer"
+              view_id="$spacer1"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: 0px;
+                width: 282px;
+                height: 12px;
+              "
+            ></div>
+            <div
+              class="webix_view webix_control webix_el_search"
+              view_id="$search1"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 282px;
+                height: 38px;
+              "
+            >
+              <div class="webix_el_box" style="width: 282px; height: 38px">
+                <input
+                  placeholder="Search"
+                  id="1683382762689"
+                  type="text"
+                  value=""
+                  style="width: 278px; text-align: left; padding-right: 27px"
+                /><span
+                  style="right: 2px; height: 26px; padding-top: 6px"
+                  class="webix_input_icon wxi-search"
+                ></span>
+              </div>
+            </div>
+            <div
+              class="webix_view webix_spacer"
+              view_id="$spacer2"
+              style="
+                border-width: 0px;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 282px;
+                height: 12px;
+              "
+            ></div>
+          </div>
+          <div
+            class="webix_view webix_spacer"
+            view_id="$spacer3"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              border-width: 0px;
+              margin-top: 8px;
+              margin-left: 12px;
+              width: 1780px;
+              height: 60px;
+            "
+          ></div>
 
-    <script src="script.js"></script>
+          <div
+            class="webix_view webix_control webix_el_icon"
+            view_id="$icon3"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              border-width: 0px;
+              margin-top: 8px;
+              margin-left: 12px;
+              width: 38px;
+              height: 60px;
+            "
+          >
+            
+          </div>
+        </div>
+      </div>
+      <div
+        class="webix_view webix_layout_clean"
+        view_id="$layout3"
+        style="
+          white-space: nowrap;
+          border-left-width: 0px;
+          border-right-width: 0px;
+          border-bottom-width: 0px;
+          margin-left: 0px;
+          margin-top: -1px;
+          width: 2512px;
+          height: 1241px;
+        "
+      >
+        <div
+          class="webix_view webix_scrollview webix_custom_scroll leftSidebar"
+          view_id="$scrollview1"
+          style="
+            border-width: 1px 0px 0px;
+            overflow: scroll;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 0px;
+            margin-left: 0px;
+            width: 270px;
+            height: 1240px;
+          "
+        >
+          <div class="webix_scroll_cont">
+            <div
+              class="webix_view webix_layout_line"
+              view_id="$layout4"
+              style="width: 270px; height: 1240px"
+            >
+              <div
+                class="webix_view sidebarUser"
+                view_id="$template1"
+                style="
+                  border-width: 0px 0px 1px;
+                  margin-left: 0px;
+                  margin-top: 0px;
+                  width: 270px;
+                  height: 126px;
+                "
+              >
+                <div class="webix_template">
+                  <div class="userWrapp">
+                    <div class="userInfo">
+                      <span class="userName">Barry Round</span>
+                      <span class="userPosition">Administrator</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="webix_view webix_control webix_el_button webix_primary"
+                view_id="$button1"
+                style="
+                  border-width: 0px;
+                  margin-left: 0px;
+                  margin-top: 10px;
+                  width: 270px;
+                  height: 38px;
+                  text-align: center;
+                "
+              >
+                <div
+                  class="webix_el_box"
+                  style="width: 240px; height: 38px; display: inline-block"
+                >
+                  <button
+                    type="button"
+                    class="webix_button webix_img_btn"
+                    style="line-height: 32px"
+                  >
+                    <span
+                      class="webix_icon_btn wxi-plus"
+                      style="max-width: 32px"
+                    ></span
+                    >Compose
+                  </button>
+                </div>
+              </div>
+              <div
+                class="webix_view webix_tree webix_sidebar webix_sidebar_expanded webix_sidebar_left webix_dark sidebarMenu"
+                role="tree"
+                view_id="$sidebar1"
+                style="
+                  border-width: 1px 0px;
+                  margin-left: 0px;
+                  margin-top: 10px;
+                  width: 270px;
+                  height: 230px;
+                "
+              >
+                <div class="webix_scroll_cont">
+                  <div role="presentation" class="webix_tree_leaves">
+                    <div role="presentation" class="webix_tree_branch_1">
+                      <div
+                        webix_tm_id="1"
+                        class="webix_tree_item webix_selected"
+                        role="treeitem"
+                        aria-selected="true"
+                        tabindex="0"
+                        aria-level="1"
+                      >
+                        <div class="flex spaceBetween alignCenter">
+                          <span
+                            ><span
+                              class="webix_icon webix_sidebar_icon mdi mdi-inbox-arrow-down"
+                            ></span
+                            ><span>Inbox</span></span
+                          ><span class="sidebarBadge">3</span>
+                        </div>
+                      </div>
+                      <div role="presentation" class="webix_tree_branch_1">
+                        <div
+                          webix_tm_id="2"
+                          class="webix_tree_item"
+                          role="treeitem"
+                          tabindex="-1"
+                          aria-level="1"
+                        >
+                          <span
+                            class="webix_icon webix_sidebar_icon mdi mdi-pencil"
+                          ></span
+                          ><span>Drafts</span>
+                        </div>
+                      </div>
+                      <div role="presentation" class="webix_tree_branch_1">
+                        <div
+                          webix_tm_id="3"
+                          class="webix_tree_item"
+                          role="treeitem"
+                          tabindex="-1"
+                          aria-level="1"
+                        >
+                          <span
+                            class="webix_icon webix_sidebar_icon mdi mdi-send"
+                          ></span
+                          ><span>Sent</span>
+                        </div>
+                      </div>
+                      <div role="presentation" class="webix_tree_branch_1">
+                        <div
+                          webix_tm_id="4"
+                          class="webix_tree_item"
+                          role="treeitem"
+                          tabindex="-1"
+                          aria-level="1"
+                        >
+                          <span
+                            class="webix_icon webix_sidebar_icon mdi mdi-alert"
+                          ></span
+                          ><span>Spam</span>
+                        </div>
+                      </div>
+                      <div role="presentation" class="webix_tree_branch_1">
+                        <div
+                          webix_tm_id="5"
+                          class="webix_tree_item"
+                          role="treeitem"
+                          tabindex="-1"
+                          aria-level="1"
+                        >
+                          <span
+                            class="webix_icon webix_sidebar_icon mdi mdi-trash-can"
+                          ></span
+                          ><span>Deleted</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="webix_view webix_tree webix_sidebar webix_sidebar_expanded webix_sidebar_left webix_dark"
+                role="tree"
+                view_id="$sidebar2"
+                style="
+                  border-width: 1px 0px 0px;
+                  margin-left: 0px;
+                  margin-top: 10px;
+                  width: 270px;
+                  height: 812px;
+                "
+              >
+                <div class="webix_scroll_cont">
+                  <div role="presentation" class="webix_tree_leaves">
+                    <div role="presentation" class="webix_tree_branch_1">
+                      <div
+                        webix_tm_id="1"
+                        class="webix_tree_item work"
+                        role="treeitem"
+                        tabindex="0"
+                        aria-level="1"
+                      >
+                        <span
+                          class="webix_icon webix_sidebar_icon mdi mdi-tag"
+                        ></span
+                        ><span>Work</span>
+                      </div>
+                    </div>
+                    <div role="presentation" class="webix_tree_branch_1">
+                      <div
+                        webix_tm_id="2"
+                        class="webix_tree_item travelling"
+                        role="treeitem"
+                        tabindex="-1"
+                        aria-level="1"
+                      >
+                        <span
+                          class="webix_icon webix_sidebar_icon mdi mdi-tag"
+                        ></span
+                        ><span>Travelling</span>
+                      </div>
+                    </div>
+                    <div role="presentation" class="webix_tree_branch_1">
+                      <div
+                        webix_tm_id="3"
+                        class="webix_tree_item friends"
+                        role="treeitem"
+                        tabindex="-1"
+                        aria-level="1"
+                      >
+                        <span
+                          class="webix_icon webix_sidebar_icon mdi mdi-tag"
+                        ></span
+                        ><span>Friends</span>
+                      </div>
+                    </div>
+                    <div role="presentation" class="webix_tree_branch_1">
+                      <div
+                        webix_tm_id="4"
+                        class="webix_tree_item newTag"
+                        role="treeitem"
+                        tabindex="-1"
+                        aria-level="1"
+                      >
+                        <span
+                          class="webix_icon webix_sidebar_icon mdi mdi-plus"
+                        ></span
+                        ><span>New tag</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="webix_view webix_layout_line"
+          view_id="$layout7"
+          style="
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: top;
+            border-left-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            margin-top: 0px;
+            margin-left: 0px;
+            width: 2242px;
+            height: 1241px;
+          "
+        >
+          <div
+            class="webix_view webix_layout_line"
+            view_id="$layout8"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              border-left-width: 0px;
+              border-bottom-width: 0px;
+              margin-top: 0px;
+              margin-left: 0px;
+              width: 360px;
+              height: 1241px;
+            "
+          >
+            <div
+              class="webix_view webix_toolbar inboxBg webix_layout_toolbar"
+              role="toolbar"
+              view_id="$toolbar2"
+              style="
+                border-width: 1px 1px 1px 0px;
+                white-space: nowrap;
+                margin-left: 0px;
+                margin-top: 0px;
+                width: 359px;
+                height: 56px;
+              "
+            >
+              <div class="webix_scroll_cont">
+                <div
+                  class="webix_view webix_control webix_el_richselect inboxMenu"
+                  view_id="$richselect1"
+                  style="
+                    display: inline-block;
+                    vertical-align: top;
+                    border-width: 0px;
+                    margin-top: 2px;
+                    margin-left: 10px;
+                    width: 100px;
+                    height: 52px;
+                  "
+                >
+                  <div class="webix_el_box" style="width: 100px; height: 52px">
+                    <div
+                      class="webix_inp_static"
+                      role="combobox"
+                      aria-label=""
+                      tabindex="0"
+                      onclick=""
+                      style="line-height: 44px; width: 96px; text-align: left"
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-live="assertive"
+                      aria-atomic="true"
+                    >
+                      Recent
+                    </div>
+                    <span
+                      style="right: 2px; height: 33px; padding-top: 13px"
+                      class="webix_input_icon wxi-menu-down"
+                    ></span>
+                  </div>
+                </div>
+                <div
+                  class="webix_view webix_spacer"
+                  view_id="$spacer4"
+                  style="
+                    display: inline-block;
+                    vertical-align: top;
+                    border-width: 0px;
+                    margin-top: 2px;
+                    margin-left: 4px;
+                    width: 201px;
+                    height: 52px;
+                  "
+                ></div>
+                <div
+                  class="webix_view webix_control webix_el_icon"
+                  view_id="$icon4"
+                  style="
+                    display: inline-block;
+                    vertical-align: top;
+                    border-width: 0px;
+                    margin-top: 2px;
+                    margin-left: 4px;
+                    width: 38px;
+                    height: 52px;
+                  "
+                >
+                  <div
+                    class="webix_el_box"
+                    style="
+                      width: 38px;
+                      height: 52px;
+                      line-height: 52px;
+                      margin-top: 0px;
+                    "
+                  >
+                    <button
+                      type="button"
+                      style="height: 38px; width: 38px"
+                      class="webix_icon_button"
+                    >
+                      <span class="webix_icon mdi mdi-refresh"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="webix_view webix_list webix_custom_scroll inboxBg"
+              role="listbox"
+              view_id="$list1"
+              style="
+                border-width: 1px 1px 0px 0px;
+                overflow-y: scroll;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 359px;
+                height: 1183px;
+              "
+            >
+              <div class="webix_scroll_cont" id="inbox">
+                <!-- <div
+                  webix_l_id="1"
+                  class="webix_list_item inboxItem"
+                  style="width: auto; height: 112px; overflow: hidden"
+                  role="option"
+                  tabindex="-1"
+                >
+                  <div class="inboxWrapp flex unread">
+                    <div class="inboxLeft">
+                      <div class="inboxImg">
+                        <img src="./kira_crouch.png" />
+                        <div class="inboxState online"></div>
+                      </div>
+                    </div>
+                    <div class="flex flexColumn wide">
+                      <div class="flex spaceBetween wide">
+                        <span class="inboxUser">Kira Crouch</span>
+                        <span class="smTextLight">11.20</span>
+                      </div>
+                      <div class="inboxSubject">Next week meeting</div>
+                      <div class="flex spaceBetween alignCenter wide">
+                        <span class="inboxMessage"
+                          >Greetings, fellow colleagues. I would like to share
+                          my insights on this task...</span
+                        >
+                        <span class="inboxTag mdi mdi-tag work"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  webix_l_id="5"
+                  class="webix_list_item inboxItem webix_selected"
+                  style="width: auto; height: 112px; overflow: hidden"
+                  role="option"
+                  aria-selected="true"
+                  tabindex="0"
+                >
+                  <div class="inboxWrapp flex">
+                    <div class="inboxLeft">
+                    </div>
+                    <div class="flex flexColumn wide">
+                      <div class="flex spaceBetween wide">
+                        <span class="inboxUser">{Email}</span>
+                        <span class="smTextLight">{Date}</span>
+                      </div>
+                      <div class="inboxSubject">Next week meeting</div>
+                      <div class="flex spaceBetween alignCenter wide">
+                        <span class="inboxMessage"
+                          >{Body}</span
+                        >
+                        <span class="inboxTag mdi mdi-tag work"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+          <div
+            class="webix_view webix_layout_line"
+            view_id="$layout9"
+            style="
+              display: inline-block;
+              vertical-align: top;
+              border-right-width: 0px;
+              border-bottom-width: 0px;
+              margin-top: 0px;
+              margin-left: -1px;
+              width: 1883px;
+              height: 1241px;
+            "
+          >
+            <div
+              class="webix_view webix_layout_clean"
+              view_id="$layout10"
+              style="
+                white-space: nowrap;
+                border-right-width: 0px;
+                margin-left: 0px;
+                margin-top: 0px;
+                width: 1883px;
+                height: 208px;
+              "
+            >
+              <div
+                class="webix_view mailHead"
+                view_id="$template4"
+                style="
+                  border-width: 1px 0px 1px 1px;
+                  display: inline-block;
+                  vertical-align: top;
+                  margin-top: 0px;
+                  margin-left: 0px;
+                  width: 1680px;
+                  height: 206px;
+                "
+              >
+                <div class="webix_template">
+                  <div class="inboxWrapp flex wide">
+                    <div class="flex flexColumn wide">
+                      <span class="mailSubject boldText" id="mailSubject"
+                        ></span
+                      >
+                      <div class="mailInfoTable flex flexColumn">
+                        <div class="tableRow flex">
+                          <div class="tableLeft">
+                            <span class="smTextLight">from:</span>
+                          </div>
+                          <div class="tableRight smText">
+                            <span class="mailItem">
+                              <span class="boldText" id="sender"></span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="tableRow flex">
+                          <div class="tableLeft">
+                            <span class="smTextLight">to:</span>
+                          </div>
+                          <div class="tableRight smText">
+                            <span class="mailItem">
+                              <span class="boldText" id="recipient">Elina Rollins</span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="tableRow flex">
+                          <div class="tableLeft">
+                            <span class="smTextLight">when:</span>
+                          </div>
+                          <div class="tableRight smText">
+                            <span id="date">01.07.2021, 11:20 AM</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="webix_view webix_toolbar webix_layout_toolbar"
+                role="toolbar"
+                view_id="$toolbar3"
+                style="
+                  border-width: 1px 0px;
+                  display: inline-block;
+                  vertical-align: top;
+                  margin-top: 0px;
+                  margin-left: 0px;
+                  width: 202px;
+                  height: 206px;
+                "
+              >
+                <div class="webix_scroll_cont">
+                  <div
+                    class="webix_view webix_layout_line"
+                    view_id="$layout11"
+                    style="
+                      white-space: nowrap;
+                      border-width: 0px;
+                      margin-left: 2px;
+                      margin-top: 2px;
+                      width: 198px;
+                      height: 45px;
+                    "
+                  >
+                    <div
+                      class="webix_view webix_spacer"
+                      view_id="$spacer5"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 0px;
+                        width: 0px;
+                        height: 38px;
+                      "
+                    ></div>
+                    <div
+                      class="webix_view webix_control webix_el_icon"
+                      view_id="$icon5"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 10px;
+                        width: 38px;
+                        height: 38px;
+                      "
+                    >
+                      <div
+                        class="webix_el_box"
+                        style="
+                          width: 38px;
+                          height: 38px;
+                          line-height: 0px;
+                          margin-top: 0px;
+                        "
+                      >
+                        <button
+                          type="button"
+                          style="height: 38px; width: 38px"
+                          class="webix_icon_button"
+                        >
+                          <span
+                            class="webix_icon mdi mdi-share mdi-flip-h"
+                          ></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="webix_view webix_control webix_el_icon"
+                      view_id="$icon6"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 10px;
+                        width: 38px;
+                        height: 38px;
+                      "
+                    >
+                      <div
+                        class="webix_el_box"
+                        style="
+                          width: 38px;
+                          height: 38px;
+                          line-height: 0px;
+                          margin-top: 0px;
+                        "
+                      >
+                        <button
+                          type="button"
+                          style="height: 38px; width: 38px"
+                          class="webix_icon_button"
+                        >
+                          <span
+                            class="webix_icon mdi mdi-share-all mdi-flip-h"
+                          ></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="webix_view webix_control webix_el_icon"
+                      view_id="$icon7"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 10px;
+                        width: 38px;
+                        height: 38px;
+                      "
+                    >
+                      <div
+                        class="webix_el_box"
+                        style="
+                          width: 38px;
+                          height: 38px;
+                          line-height: 0px;
+                          margin-top: 0px;
+                        "
+                      >
+                        <button
+                          type="button"
+                          style="height: 38px; width: 38px"
+                          class="webix_icon_button"
+                        >
+                          <span
+                            class="webix_icon mdi mdi-arrow-right-bold"
+                          ></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="webix_view webix_control webix_el_icon"
+                      view_id="$icon8"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 10px;
+                        width: 38px;
+                        height: 38px;
+                      "
+                    >
+                      <div
+                        class="webix_el_box"
+                        style="
+                          width: 38px;
+                          height: 38px;
+                          line-height: 0px;
+                          margin-top: 0px;
+                        "
+                      >
+                        <button
+                          type="button"
+                          style="height: 38px; width: 38px"
+                          class="webix_icon_button"
+                        >
+                          <span class="webix_icon mdi mdi-trash-can"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="webix_view webix_spacer"
+                      view_id="$spacer6"
+                      style="
+                        display: inline-block;
+                        vertical-align: top;
+                        border-width: 0px;
+                        margin-top: 7px;
+                        margin-left: 10px;
+                        width: 0px;
+                        height: 38px;
+                      "
+                    ></div>
+                  </div>
+                  <div
+                    class="webix_view webix_spacer"
+                    view_id="$spacer7"
+                    style="
+                      border-width: 0px;
+                      margin-left: 2px;
+                      margin-top: 4px;
+                      width: 198px;
+                      height: 153px;
+                    "
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="webix_view webix_custom_scroll"
+              view_id="$template5"
+              style="
+                border-width: 1px 0px 1px 1px;
+                overflow: scroll;
+                margin-left: 0px;
+                margin-top: -1px;
+                width: 1882px;
+                height: 782px;
+              "
+            >
+              <div class="webix_scroll_cont webix_template">
+                <div class="mailWrapper content" id="fileContent">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
-
 </html>
