@@ -14,17 +14,17 @@ def checkSBL(ip):
 
         print(response.text)
     except:
-        logError(1, "Error checking SBL with Hostname")
+        logError(2, "Error checking SBL with Hostname")
         return True
 
     if response.status_code == 200:
         if ("is not in the SBL" in response.text):
             return True
         else:
-            logFail(1, "IP is in the SBL")
+            logFail(2, "IP is in the SBL")
             return False
     else:
-        logError(1, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
+        logError(2, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
         return True
 
 
@@ -38,17 +38,17 @@ def checkPBL(ip):
 
         print(response.text)
     except:
-        logError(1, "Error checking SBL with Hostname")
+        logError(2, "Error checking SBL with Hostname")
         return True
 
     if response.status_code == 200:
         if ("is not in the SBL" in response.text):
             return True
         else:
-            logFail(1, "IP is in the SBL")
+            logFail(2, "IP is in the SBL")
             return False
     else:
-        logError(1, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
+        logError(2, "Response code was not 200 for SBL check, it was " + str(response.status_code) + " for " + url)
         return True
 
 

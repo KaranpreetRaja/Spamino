@@ -11,3 +11,7 @@ def logPass(checkNum):
 def logError(checkNum, message):
     with open("full_log.txt", "a") as f:
         f.write(f"Check #{checkNum} Error: {message}\n")
+
+def logSpamReason(reason):
+    with open("/spams/reason", "a") as f:
+        f.write(reason)
