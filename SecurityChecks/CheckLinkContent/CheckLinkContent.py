@@ -31,17 +31,17 @@ def checkLinkContent(link, vectorizer, model):
         #print (soupContent)
             str =' '.join([text.get_text() for text in soupContent.find_all(['h1', 'h2', 'h3', 'p'])])
             if str =="":
-                return True
+                return False
             X_test = vectorizer.transform([str])
             prediction = model.predict(X_test)
             return prediction
         else:
             #print("not ok", response.status_code)
-            return True
+            return False
     
     except Timeout:
         #print("Request timed out!")
-        return True
+        return False
     
 #    example how to use on a link 
 # vectorizer, model = InitializeVectorizerAndModel()
