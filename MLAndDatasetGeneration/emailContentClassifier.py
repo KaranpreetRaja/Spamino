@@ -12,9 +12,10 @@ from torch.utils.data import DataLoader
 
 # Defines custom dataset for PyTorch
 class CustomDataset(Dataset):
-    def __init__(self, data, tokenizer):
+    def __init__(self, data, tokenizer, max_sequence_length):
         self.data = data
         self.tokenizer = tokenizer
+        self.max_sequence_length = max_sequence_length
 
     def __len__(self):
         return len(self.data)
@@ -22,9 +23,16 @@ class CustomDataset(Dataset):
     def __getitem__(self, idx):
         row = self.data.iloc[idx]
         text_features = self.tokenizer(row['title'] + row['body'], padding='max_length', truncation=True, return_tensors='pt')
+        actual_sequence_length = text_features['input_ids'].size(1)
+        padding_length = self.max_sequence_length - actual_sequence_length
+        if padding_length < 0:
+            padding_length = 0
+        elif padding_length >= self.max_sequence_length:
+            padding_length = 0
+        text_features_padded = {key: torch.nn.functional.pad(value[0], (0, 0, 0, padding_length)) if padding_length > 0 else value[0] for key, value in text_features.items()}
         numerical_features = torch.tensor([row['tld'], row['has_return_path'], row['x_bulkmail']], dtype=torch.float32)
         label = torch.tensor(row['label'], dtype=torch.float32)
-        return text_features, numerical_features, label
+        return text_features_padded, numerical_features, label
 
 
 # Defines binary classifier using PyTorch
@@ -175,7 +183,7 @@ def load_data(tokenizer):
     target = "label"
 
     # Create X and y
-    dataset = CustomDataset(data, tokenizer)
+    dataset = CustomDataset(data, tokenizer, max_len)
 
     return dataset
 
@@ -203,7 +211,7 @@ test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
 
 # Creates the binary classifier and trains it using PyTorch lib
-clf = BinaryClassifier(input_size=5)
+clf = BinaryClassifier(input_size=3)
 criterion = nn.BCELoss()
 optimizer = optim.Adam(clf.parameters(), lr=0.001)
 num_epochs = 10
