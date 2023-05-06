@@ -7,6 +7,25 @@ import pandas as pd
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
 from sklearn.model_selection import KFold
 from transformers import BertTokenizer
+from torch.utils.data import Dataset
+from torch.utils.data import DataLoader
+
+# Defines custom dataset for PyTorch
+class CustomDataset(Dataset):
+    def __init__(self, data, tokenizer):
+        self.data = data
+        self.tokenizer = tokenizer
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        row = self.data.iloc[idx]
+        text_features = self.tokenizer(row['title'] + row['body'], padding='max_length', truncation=True, return_tensors='pt')
+        numerical_features = torch.tensor([row['tld'], row['has_return_path'], row['x_bulkmail']], dtype=torch.float32)
+        label = torch.tensor(row['label'], dtype=torch.float32)
+        return text_features, numerical_features, label
+
 
 # Defines binary classifier using PyTorch
 class BinaryClassifier(nn.Module):
@@ -106,13 +125,10 @@ def tokenize_and_truncate(string, tokenizer, max_len):
     return tokens
 
 
-def load_data():
+def load_data(tokenizer):
     # Read the CSV file
     data = pd.read_csv("exdata.csv")
 
-
-    # Set up BERT tokenizer
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
 
     # get tokenizer max length
     max_len = tokenizer.max_model_input_sizes['bert-base-uncased']
@@ -156,14 +172,12 @@ def load_data():
     print(data.dtypes)
 
 
-
     target = "label"
 
     # Create X and y
-    X = data[features].values
-    y = data[target].values
+    dataset = CustomDataset(data, tokenizer)
 
-    return X, y
+    return dataset
 
 # Chooses the device (CPU or GPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -173,54 +187,68 @@ if torch.cuda.is_available():
     print("Using CUDA!")
 
 # Loads the data
-X, y = load_data()
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+dataset = load_data(tokenizer)
 
 # Splits the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+train_size = int(0.8 * len(dataset))
+test_size = len(dataset) - train_size
+train_dataset, test_dataset = torch.utils.data.random_split(dataset, [train_size, test_size])
 
-# Converts the data to PyTorch tensors
-X_train = torch.FloatTensor(X_train)
-y_train = torch.FloatTensor(y_train)
-X_test = torch.FloatTensor(X_test)
-y_test = torch.FloatTensor(y_test)
+# Creates the data loaders
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+
+
 
 # Creates the binary classifier and trains it using PyTorch lib
-clf = BinaryClassifier(input_size=X_train.shape[1])
+clf = BinaryClassifier(input_size=5)
 criterion = nn.BCELoss()
 optimizer = optim.Adam(clf.parameters(), lr=0.001)
 num_epochs = 10
 for epoch in range(num_epochs):
-    optimizer.zero_grad()
-    outputs = clf(X_train)
-    loss = criterion(outputs, y_train)
-    loss.backward()
-    optimizer.step()
+    for batch in train_loader:
+        text_features, numerical_features, labels = batch
+        optimizer.zero_grad()
+        outputs = clf(numerical_features)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
     print("Epoch {}/{} - loss: {:.4f}".format(epoch+1, num_epochs, loss.item()))
 
-# Creates DQN agent and train it using PyTorch
-state_size = X_train.shape[1]
-action_size = 2
-agent = DQNAgent(state_size, action_size)
-num_episodes = 1000
-for episode in range(num_episodes):
-    state = X_train[0]
-    done = False
-    while not done:
-        action = agent.act(state)
-        next_state = X_train[action]
-        reward = y_train[action]
-        agent.remember(state, action, reward, next_state, done)
-        state = next_state
-        agent.replay()
-    agent.decay_epsilon()
-    if (episode+1) % 100 == 0:
-        print("Episode {}/{}".format(episode+1, num_episodes))
+# # Creates DQN agent and train it using PyTorch
+# state_size = X_train.shape[1]
+# action_size = 2
+# agent = DQNAgent(state_size, action_size)
+# num_episodes = 1000
+# for episode in range(num_episodes):
+#     state = X_train[0]
+#     done = False
+#     while not done:
+#         action = agent.act(state)
+#         next_state = X_train[action]
+#         reward = y_train[action]
+#         agent.remember(state, action, reward, next_state, done)
+#         state = next_state
+#         agent.replay()
+#     agent.decay_epsilon()
+#     if (episode+1) % 100 == 0:
+#         print("Episode {}/{}".format(episode+1, num_episodes))
 
 # Evaluates the binary classifier
+y_test = []
+y_pred = []
 clf.eval()
-y_pred = clf(X_test)
-y_pred = y_pred.detach().numpy()
-y_pred = np.where(y_pred > 0.5, 1, 0)
+with torch.no_grad():
+    for batch in test_loader:
+        text_features, numerical_features, labels = batch
+        outputs = clf(numerical_features)
+        y_test.extend(labels.numpy())
+        y_pred.extend(np.where(outputs.numpy() > 0.5, 1, 0))
+
+y_test = np.array(y_test)
+y_pred = np.array(y_pred)
 
 #prints f1 score, precision, recall, accuracy
 print("F1 score: {:.2f}".format(f1_score(y_test, y_pred)))
@@ -231,4 +259,4 @@ print("Accuracy: {:.2f}".format(accuracy_score(y_test, y_pred)))
 
 # Saves trained models
 clf.save("binary_classifier.pt")
-agent.save("dqn_agent.pt")
+# agent.save("dqn_agent.pt")
